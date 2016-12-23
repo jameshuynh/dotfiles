@@ -31,27 +31,68 @@ Plugin 'tpope/vim-surround.git'
 " allow to comment using gc or gcc key
 Plugin 'tpope/vim-commentary'
 
+" allow navigate with tmux
+Plugin 'christoomey/vim-tmux-navigator'
+
+" syntastic check
+Plugin 'scrooloose/syntastic'
+
+" enable repeating supported plugin maps
+Plugin 'tpope/vim-repeat'
+
+" manage clipboard
+Plugin 'svermeulen/vim-easyclip'
+
+" Vim airline for status bar
+Plugin 'vim-airline/vim-airline'
+
+" Vim airline theme
+Plugin 'vim-airline/vim-airline-themes'
+
+" Live Coding
+Plugin 'metakirby5/codi.vim'
+
+" Auto save
+Plugin 'vim-scripts/vim-auto-save'
+
+" Vim Rails
+Plugin 'tpope/vim-rails'
+
+" Vim Airline
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 
 " ================= All Settings ===========================
 
-set nocompatible              " be iMproved, required
+set nocompatible        " be iMproved, required
 set backspace=2         " backspace in insert mode works like normal editor
 syntax on               " syntax highlighting
 set expandtab           " to insert space characters when tab
 filetype indent on      " activates indenting for files
 set autoindent          " auto indenting
-set number              " line numbers
+set relativenumber      " line numbers
+set numberwidth=5       " number column space
 set background=dark
 colorscheme dracula     " colorscheme desert
 set nobackup            " get rid of anoying ~file
 set nowritebackup       " get rid of annoying ~file
+set noswapfile          " get rid of annoying swapfile
 set tabstop=2           " tab space to 2
 set softtabstop=2       " soft tab space to 2
 set shiftwidth=2        " shift the content every 2 columns
 set cc=80               " show column at 80
 set scrolloff=10        " keep bottom / top offset at 10
+set incsearch           " do incremental searching
+set ruler               " show the cursor position all the time
+set laststatus=2        " Always display the status line
+
+" Enable true color for vim, yay!
+" let &t_8f="\e[38;2;%ld;%ld;%ldm"
+" let &t_8b="\e[48;2;%ld;%ld;%ldm"
+" set guicolors
+set termguicolors
+" End
 
 " split below and right vim
 set splitbelow
@@ -65,6 +106,15 @@ set grepprg=ag
 " To turn off error beeping and flashing in Vim
 set vb t_vb=
 
+" Clear background terminal color option
+set t_ut=
+
+set clipboard=unnamed " make clipboard shared between vim and other app
+
+" prevent ag search to flash the search result
+" set t_ti= t_te=
+set shellpipe=>
+
 " =================== All Mappings =========================
 
 " Do not allow to use arrow buttons
@@ -74,13 +124,28 @@ nnoremap <Up> :echoe "Use k"<CR>
 nnoremap <Down> :echoe "Use j"<CR>
 
 " Move around window using ctrl - k, j, h, l
-nmap <silent> <c-k> :wincmd k<CR>
-nmap <silent> <c-j> :wincmd j<CR>
-nmap <silent> <c-h> :wincmd h<CR>
-nmap <silent> <c-l> :wincmd l<CR>
+nmap <silent> <c-k> <c-w>k<CR>
+nmap <silent> <c-j> <c-w>j<CR>
+nmap <silent> <c-h> <c-w>h<CR>
+nmap <silent> <c-l> <c-w>l<CR>
 
 nmap 0 ^
 nmap 4 $
+
+" tab to trigger auto complete
+" inoremap <Tab> <c-p>
+" autocomplete setup
+set complete=.,b,u,]
+set wildmode=longest,list:longest
+set completeopt=menu,preview
+
+" Y should work like D
+map Y y$
+
+" imap <Tab> <C-P>
+
+set shell=/bin/zsh
+
 
 " ================= Leader Mapping ===================
 "
@@ -94,9 +159,13 @@ nmap <leader>so :source $MYVIMRC<cr>
 " save with w
 nmap <leader>w <esc>:w<cr>
 
+nnoremap <leader>i <esc>:!ctags_index<cr>
+
 " map jk and kj with escape
-imap jk <esc>
-imap kj <esc>
+
+" imap <esc> <nop> -- to extreme
+inoremap kk <esc>
+inoremap jj <esc>
 
 " open ctrl-p
 nmap <leader>o :CtrlP<cr>
@@ -106,6 +175,12 @@ nmap <leader><leader> V
 
 " on visual mode, when press u, do nothing
 vmap u <nop>
+
+" open easyclip paste
+cmap <c-v> <plug>EasyClipCommandModePaste
+imap <c-v> <plug>EasyClipInsertModePaste
+
+nmap <c-q> :echoe hello<cr>
 
 " ================== Extra Functions ================================
 
@@ -124,13 +199,86 @@ endfunction
 nnoremap <leader>q :call <SID>StripTrailingWhitespaces()<CR>
 " ===================================================================
 
-" ================= show extra white space ==========================
-
-highlight ExtraWhitespace ctermbg=white guibg=#163e59 ctermfg=black
+" ================= show extra white space =========================
+highlight ExtraWhitespace ctermbg=black guibg=#454960 guifg=#f197e3 ctermfg=black
 set list listchars=tab:\ \ ,trail:·
 match ExtraWhitespace /\s\+$/
 
 " ================ ag config =======================================
 let g:ag_prg = 'ag --vimgrep'
-nmap <Leader>a :Ag<Space>
-nmap \ :Ag<Space>
+nmap <Leader>a :Ag!<Space>
+nmap \ :Ag!<Space>
+" =============== syntastic ========================================
+let g:syntastic_auto_jump=0
+let g:syntastic_enable_signs=1
+let g:syntastic_auto_loc_list=1
+let g:syntastic_ruby_checkers=['rubocop', 'mri']
+let g:syntastic_javascript_checkers=['eslint']
+" ================ easyclip =====================================
+let g:EasyClipAutoFormat = 1
+let g:EasyClipYankHistorySize = 10
+let g:EasyClipAlwaysMoveCursorToEndOfPaste = 0
+let g:EasyClipShareYanks = 1
+let g:EasyClipShareYanksDirectory = '~/.vim/easyclip'
+let g:EasyClipShareYanksFile = 'yanks'
+let g:EasyClipUsePasteToggleDefaults = 0
+let g:EasyClipEnableBlackHoleRedirect = 0
+let g:EasyClipUseSubstituteDefaults = 1
+" airline
+let g:airline_powerline_fonts = 1
+let g:airline_theme='lucius'
+
+nmap <leader>pf <plug>EasyClipToggleFormattedPaste
+imap <c-v> <plug>EasyClipInsertModePaste
+cmap <c-v> <plug>EasyClipCommandModePaste
+nmap P <plug>EasyClipSwapPasteForward
+nmap N <plug>EasyClipSwapPasteBackwards
+nmap <leader>p :IPaste <cr>
+" ============= SplitJoin ====================
+let g:splitjoin_ruby_hanging_args = 0
+let g:splitjoin_ruby_trailing_comma = 1
+"============== Ctrlp =======================
+let g:ctrlp_custom_ignore = {
+      \ 'dir':  'node_modules\|DS_Store\|git\|tmp\|dist',
+      \ 'file': '\v\.(exe|so|dll)$',
+      \ 'link': 'some_bad_symbolic_links',
+      \ }
+
+" CtrlP auto cache clearing.
+" ----------------------------------------------------------------------------
+function! SetupCtrlP()
+  if exists("g:loaded_ctrlp") && g:loaded_ctrlp
+    augroup CtrlPExtension
+      autocmd!
+      autocmd FocusGained  * CtrlPClearCache
+      autocmd BufWritePost * CtrlPClearCache
+    augroup END
+  endif
+endfunction
+if has("autocmd")
+  autocmd VimEnter * :call SetupCtrlP()
+endif
+
+" ============= Auto Save ======================
+let g:auto_save = 1
+let g:auto_save_in_insert_mode = 0
+" ============= My Script ======================
+
+function! JSWrapIgnoreUnusedVariable()
+  augroup JSWrapIgnoreUnusedVariable
+    call append(line('.') - 1, "/*eslint-disable no-unused-vars*/")
+    call append(line('.'), "/*eslint-disable no-unused-vars*/")
+  augroup END
+endfunction
+
+map <leader>igl :call JSWrapIgnoreUnusedVariable()<cr>
+
+" ============== Change Hash Syntax ===========
+function! s:ChangeHashSyntax(line1,line2)
+  let l:save_cursor = getpos(".")
+  silent! execute ':' . a:line1 . ',' . a:line2 . 's/\([^:]\):\([a-z0-9_]\+\)\s\+=>/\1\2:/g'
+  call setpos('.', l:save_cursor)
+endfunction
+
+command! -range=% ChangeHashSyntax call <SID>ChangeHashSyntax(<line1>,<line2>)
+nmap <leader>ch <esc>:ChangeHashSyntax<cr>
