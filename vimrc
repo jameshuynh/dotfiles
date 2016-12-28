@@ -35,7 +35,8 @@ Plugin 'tpope/vim-commentary'
 Plugin 'christoomey/vim-tmux-navigator'
 
 " syntastic check
-Plugin 'scrooloose/syntastic'
+" Plugin 'scrooloose/syntastic'
+Plugin 'w0rp/ale'
 
 " enable repeating supported plugin maps
 Plugin 'tpope/vim-repeat'
@@ -72,6 +73,7 @@ set expandtab           " to insert space characters when tab
 filetype indent on      " activates indenting for files
 set autoindent          " auto indenting
 set relativenumber      " line numbers
+set number
 set numberwidth=5       " number column space
 set background=dark
 colorscheme dracula     " colorscheme desert
@@ -209,11 +211,27 @@ let g:ag_prg = 'ag --vimgrep'
 nmap <Leader>a :Ag!<Space>
 nmap \ :Ag!<Space>
 " =============== syntastic ========================================
-let g:syntastic_auto_jump=0
-let g:syntastic_enable_signs=1
-let g:syntastic_auto_loc_list=1
-let g:syntastic_ruby_checkers=['rubocop', 'mri']
-let g:syntastic_javascript_checkers=['eslint']
+" let g:syntastic_auto_jump=0
+" let g:syntastic_enable_signs=1
+" let g:syntastic_auto_loc_list=1
+" let g:syntastic_ruby_checkers=['rubocop', 'mri']
+" let g:syntastic_javascript_checkers=['eslint']
+" let g:ale_lint_on_save = 1
+let g:ale_linters = {
+      \   'javascript': ['eslint'],
+      \   'ruby': ['rubocop', 'mri'],
+      \   'vim' : ['vint'],
+      \   'html' : ['tidy']
+      \}
+highlight ALEErrorSign ctermbg=black guibg=#454960 guifg=#ffffff ctermfg=black
+let g:ale_sign_error = '••'
+let g:ale_sign_warning = '•'
+let g:ale_statusline_format = [' E•%d', 'W•%d ', ' ⬥ ok ']
+let g:ale_echo_msg_error_str = '✹ Error'
+let g:ale_echo_msg_warning_str = '⚠ Warning'
+let g:ale_echo_msg_format = '[#%linter%#] %s [%severity%]'
+nmap <silent> <c-m> <plug>(ale_previous)
+nmap <silent> <c-n> <plug>(ale_next)
 " ================ easyclip =====================================
 let g:EasyClipAutoFormat = 1
 let g:EasyClipYankHistorySize = 10
