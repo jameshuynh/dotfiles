@@ -117,6 +117,10 @@ set clipboard=unnamed " make clipboard shared between vim and other app
 " set t_ti= t_te=
 set shellpipe=>
 
+" =================== Auto Cmd ============================
+
+autocmd Filetype help nmap <buffer> q :q<CR>
+
 " =================== All Mappings =========================
 
 " Do not allow to use arrow buttons
@@ -133,6 +137,9 @@ nmap <silent> <c-l> <c-w>l<CR>
 
 nmap 0 ^
 nmap 4 $
+
+nmap k gk
+nmap j gj
 
 " tab to trigger auto complete
 " inoremap <Tab> <c-p>
@@ -256,26 +263,29 @@ nmap <leader>p :IPaste <cr>
 let g:splitjoin_ruby_hanging_args = 0
 let g:splitjoin_ruby_trailing_comma = 1
 "============== Ctrlp =======================
+" set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.yardoc/*,*.exe,*.so,*.dat
 let g:ctrlp_custom_ignore = {
-      \ 'dir':  'node_modules\|DS_Store\|git\|tmp\|dist',
-      \ 'file': '\v\.(exe|so|dll)$',
+      \ 'dir': '\.git$\|\.yardoc\|node_modules\|log\|tmp$',
+      \ 'file': '\v\.(exe|so|dll|jpg|png|gif)$',
       \ 'link': 'some_bad_symbolic_links',
       \ }
-
 " CtrlP auto cache clearing.
 " ----------------------------------------------------------------------------
-function! SetupCtrlP()
-  if exists("g:loaded_ctrlp") && g:loaded_ctrlp
-    augroup CtrlPExtension
-      autocmd!
-      autocmd FocusGained  * CtrlPClearCache
-      autocmd BufWritePost * CtrlPClearCache
-    augroup END
-  endif
-endfunction
-if has("autocmd")
-  autocmd VimEnter * :call SetupCtrlP()
-endif
+" function! SetupCtrlP()
+"   if exists("g:loaded_ctrlp") && g:loaded_ctrlp
+"     augroup CtrlPExtension
+"       autocmd!
+"       autocmd FocusGained  * CtrlPClearCache
+"       autocmd BufWritePost * CtrlPClearCache
+"     augroup END
+"   endif
+" endfunction
+" if has("autocmd")
+"   autocmd VimEnter * :call SetupCtrlP()
+" endif
+
+" let g:ctrlp_user_command = 'ag %s -l --hidden --nocolor -g ""'
+" let g:ctrlp_use_caching = 0
 
 " ============= Auto Save ======================
 let g:auto_save = 1
