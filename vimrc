@@ -59,6 +59,12 @@ Plugin 'vim-scripts/vim-auto-save'
 " Vim Rails
 Plugin 'tpope/vim-rails'
 
+" Vim Tmux Runner
+Plugin 'christoomey/vim-tmux-runner'
+
+" Vim Rspec
+Plugin 'thoughtbot/vim-rspec'
+
 " Vim Airline
 
 call vundle#end()            " required
@@ -165,6 +171,26 @@ nmap <leader>vr :sp $MYVIMRC<cr>
 " source vimrc
 nmap <leader>so :source $MYVIMRC<cr>
 
+nmap <leader>pi :PluginInstall<cr>
+
+" split horizontal
+nmap <leader>sp :sp<cr>
+nmap <leader>vp :vsp<cr>
+nmap <leader>ccl :ccl<cr>
+nmap <leader>qq :wq<cr>
+nmap <leader>sa <esc>ggVG
+nmap <leader>- :wincmd _<cr>:wincmd \|<cr>
+nmap <leader>= :wincmd =<cr>
+
+" tmux runner
+nnoremap <leader>irb :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'irb' }<cr>
+nnoremap <leader>osr :VtrOpenRunner {'orientation': 'h', 'percentage': 50 }<cr>
+nnoremap <leader>ap :VtrAttachToPane<cr>
+nnoremap <leader>sl :VtrSendLinesToRunner<cr>
+vnoremap <leader>sl :VtrSendLinesToRunner<cr>
+nnoremap <leader>sc :VtrSendCommand<cr>
+nnoremap <leader>ft :VtrFocusRunner<cr>
+
 " save with w
 nmap <leader>w <esc>:w<cr>
 
@@ -191,6 +217,12 @@ imap <c-v> <plug>EasyClipInsertModePaste
 
 nmap <c-q> :echoe hello<cr>
 
+"" RSpec.vim mappings
+let g:rspec_command = "VtrSendCommandToRunner! rspec {spec}"
+map <Leader>a :call RunCurrentSpecFile()<CR>
+map <Leader>t :call RunNearestSpec()<CR>
+map <Leader>l :call RunLastSpec()<CR>
+
 " ================== Extra Functions ================================
 
 " stripping white space using <leader>q
@@ -215,7 +247,6 @@ match ExtraWhitespace /\s\+$/
 
 " ================ ag config =======================================
 let g:ag_prg = 'ag --vimgrep'
-nmap <Leader>a :Ag!<Space>
 nmap \ :Ag!<Space>
 " =============== syntastic ========================================
 " let g:syntastic_auto_jump=0
@@ -240,7 +271,7 @@ let g:ale_echo_msg_format = '[#%linter%#] %s [%severity%]'
 nmap <silent> <c-m> <plug>(ale_previous)
 nmap <silent> <c-n> <plug>(ale_next)
 " ================ easyclip =====================================
-let g:EasyClipAutoFormat = 1
+" let g:EasyClipAutoFormat = 1
 let g:EasyClipYankHistorySize = 10
 let g:EasyClipAlwaysMoveCursorToEndOfPaste = 0
 let g:EasyClipShareYanks = 1
@@ -310,3 +341,4 @@ endfunction
 
 command! -range=% ChangeHashSyntax call <SID>ChangeHashSyntax(<line1>,<line2>)
 nmap <leader>ch <esc>:ChangeHashSyntax<cr>
+nmap <leader>rt <esc>:retab<cr>
