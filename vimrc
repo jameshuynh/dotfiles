@@ -1,3 +1,4 @@
+set guifont=Inconsolata\ for\ Powerline:h18
 " ================= All Plugins ===========================
 filetype off                  " required
 " set the runtime path to include Vundle and initialize
@@ -65,7 +66,14 @@ Plugin 'christoomey/vim-tmux-runner'
 " Vim Rspec
 Plugin 'thoughtbot/vim-rspec'
 
-" Vim Airline
+" Auto Completion
+Plugin 'ajh17/VimCompletesMe'
+
+" Dracula Theme
+Plugin 'dracula/vim'
+
+" Function navigation
+Plugin 'tacahiroy/ctrlp-funky'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -80,9 +88,10 @@ filetype indent on      " activates indenting for files
 set autoindent          " auto indenting
 set relativenumber      " line numbers
 set number
-set numberwidth=5       " number column space
+set numberwidth=4       " number column space
 set background=dark
-colorscheme dracula     " colorscheme desert
+colorscheme dracula     " colorscheme dracula
+set synmaxcol=80        " max color at 80
 set nobackup            " get rid of anoying ~file
 set nowritebackup       " get rid of annoying ~file
 set noswapfile          " get rid of annoying swapfile
@@ -92,8 +101,13 @@ set shiftwidth=2        " shift the content every 2 columns
 set cc=80               " show column at 80
 set scrolloff=10        " keep bottom / top offset at 10
 set incsearch           " do incremental searching
+set hlsearch
 set ruler               " show the cursor position all the time
 set laststatus=2        " Always display the status line
+set lazyredraw          " Wait to redraw
+set ttyfast
+set ignorecase
+set smartcase
 
 " Enable true color for vim, yay!
 " let &t_8f="\e[38;2;%ld;%ld;%ldm"
@@ -159,7 +173,7 @@ map Y y$
 
 " imap <Tab> <C-P>
 
-set shell=/bin/zsh
+set shell=zsh
 
 
 " ================= Leader Mapping ===================
@@ -181,6 +195,7 @@ nmap <leader>qq :wq<cr>
 nmap <leader>sa <esc>ggVG
 nmap <leader>- :wincmd _<cr>:wincmd \|<cr>
 nmap <leader>= :wincmd =<cr>
+nmap <leader>h :nohlsearch<cr>
 
 " tmux runner
 nnoremap <leader>irb :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'irb' }<cr>
@@ -240,13 +255,9 @@ endfunction
 nnoremap <leader>q :call <SID>StripTrailingWhitespaces()<CR>
 " ===================================================================
 
-" ================= show extra white space =========================
-highlight ExtraWhitespace ctermbg=black guibg=#454960 guifg=#f197e3 ctermfg=black
-set list listchars=tab:\ \ ,trail:·
-match ExtraWhitespace /\s\+$/
-
 " ================ ag config =======================================
 let g:ag_prg = 'ag --vimgrep'
+let g:ag_mapping_message=0
 nmap \ :Ag!<Space>
 " =============== syntastic ========================================
 " let g:syntastic_auto_jump=0
@@ -261,15 +272,23 @@ let g:ale_linters = {
       \   'vim' : ['vint'],
       \   'html' : ['tidy']
       \}
-highlight ALEErrorSign ctermbg=black guibg=#454960 guifg=#ffffff ctermfg=black
-let g:ale_sign_error = '••'
-let g:ale_sign_warning = '•'
+highlight ALEErrorSign ctermbg=black guibg=#3b7593 guifg=white ctermfg=black
+highlight ALEWarningSign ctermbg=black guibg=#3b7593 guifg=white ctermfg=black
+let g:ale_sign_error = '-'
+let g:ale_sign_warning = '#'
 let g:ale_statusline_format = [' E•%d', 'W•%d ', ' ⬥ ok ']
 let g:ale_echo_msg_error_str = '✹ Error'
 let g:ale_echo_msg_warning_str = '⚠ Warning'
 let g:ale_echo_msg_format = '[#%linter%#] %s [%severity%]'
 nmap <silent> <c-m> <plug>(ale_previous)
 nmap <silent> <c-n> <plug>(ale_next)
+" ================= show extra white space =========================
+highlight ExtraWhitespace ctermbg=black guibg=#454960 guifg=#f197e3 ctermfg=black
+set list listchars=tab:\ \ ,trail:·
+" highlight NonText guifg=#4a4a59
+highlight SpecialKey guibg=#454960 guifg=white
+match ExtraWhitespace /\s\+$/
+highlight LineNr ctermfg=grey ctermbg=white guibg=#444756 guifg=#cccccc
 " ================ easyclip =====================================
 " let g:EasyClipAutoFormat = 1
 let g:EasyClipYankHistorySize = 10
@@ -282,7 +301,9 @@ let g:EasyClipEnableBlackHoleRedirect = 0
 let g:EasyClipUseSubstituteDefaults = 1
 " airline
 let g:airline_powerline_fonts = 1
-let g:airline_theme='lucius'
+let g:airline_theme='base16_tomorrow'
+" let g:airline_left_sep=''
+" let g:airline_right_sep=''
 
 nmap <leader>pf <plug>EasyClipToggleFormattedPaste
 imap <c-v> <plug>EasyClipInsertModePaste
@@ -292,11 +313,11 @@ nmap N <plug>EasyClipSwapPasteBackwards
 nmap <leader>p :IPaste <cr>
 " ============= SplitJoin ====================
 let g:splitjoin_ruby_hanging_args = 0
-let g:splitjoin_ruby_trailing_comma = 1
+let g:splitjoin_ruby_trailing_comma = 0
 "============== Ctrlp =======================
 " set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.yardoc/*,*.exe,*.so,*.dat
 let g:ctrlp_custom_ignore = {
-      \ 'dir': '\.git$\|\.yardoc\|node_modules\|log\|tmp$',
+      \ 'dir': '\.git$\|\.yardoc\|node_modules\|log\|tmp\|dist\|uploads$',
       \ 'file': '\v\.(exe|so|dll|jpg|png|gif)$',
       \ 'link': 'some_bad_symbolic_links',
       \ }
@@ -342,3 +363,7 @@ endfunction
 command! -range=% ChangeHashSyntax call <SID>ChangeHashSyntax(<line1>,<line2>)
 nmap <leader>ch <esc>:ChangeHashSyntax<cr>
 nmap <leader>rt <esc>:retab<cr>
+
+" ============== ctrl-p funky
+nnoremap <Leader>fu :CtrlPFunky<Cr>
+nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>

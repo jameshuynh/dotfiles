@@ -1,3 +1,6 @@
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
 # Path to your oh-my-zsh installation.
 export ZSH=/Users/james/.oh-my-zsh
 
@@ -89,6 +92,14 @@ alias pull='git pull origin'
 alias push='git push origin'
 alias checkout='git checkout .'
 
+# project alias
+alias vitamin-lms='cd ~/apps/vitamin-lms/vitamin-lms-admin/ && ./dev-tmux'
+alias rubify-form='cd ~/apps/lab/rubify-react-form && ./dev-tmux'
+alias rubify-grid='cd ~/apps/lab/rubify-react-grid && ./dev-tmux'
+alias amazing-borneo='cd ~/apps/ab/ab-frontend && ./dev-tmux'
+alias work-ready='cd ~/apps/work-ready/work-ready-frontend && ./dev-tmux'
+
+alias ns='npm start'
 alias be='bundle exec'
 alias bt='bundle exec thin start'
 alias rc='bundle exec rails console'
@@ -154,3 +165,5 @@ zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
 source /Users/james/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
+export TM_RUBY=$HOME/.rbenv/shims/ruby
+# eval $(/usr/libexec/path_helper -s)
