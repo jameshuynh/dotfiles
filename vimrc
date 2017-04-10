@@ -67,13 +67,15 @@ Plugin 'christoomey/vim-tmux-runner'
 Plugin 'thoughtbot/vim-rspec'
 
 " Auto Completion
-Plugin 'ajh17/VimCompletesMe'
+Plugin 'ervandew/supertab'
 
 " Dracula Theme
 Plugin 'dracula/vim'
 
 " Function navigation
 Plugin 'tacahiroy/ctrlp-funky'
+
+Plugin 'junegunn/vim-emoji'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -106,7 +108,7 @@ set ruler               " show the cursor position all the time
 set laststatus=2        " Always display the status line
 set lazyredraw          " Wait to redraw
 set ttyfast
-set ignorecase
+" set ignorecase
 set smartcase
 
 " Enable true color for vim, yay!
@@ -155,8 +157,8 @@ nmap <silent> <c-j> <c-w>j<CR>
 nmap <silent> <c-h> <c-w>h<CR>
 nmap <silent> <c-l> <c-w>l<CR>
 
-nmap 0 ^
-nmap 4 $
+" nmap 0 ^
+" nmap 4 $
 
 nmap k gk
 nmap j gj
@@ -164,9 +166,9 @@ nmap j gj
 " tab to trigger auto complete
 " inoremap <Tab> <c-p>
 " autocomplete setup
-set complete=.,b,u,]
-set wildmode=longest,list:longest
-set completeopt=menu,preview
+" set complete=.,b,u,]
+" set wildmode=longest,list:longest
+" set completeopt=menu,preview
 
 " Y should work like D
 map Y y$
@@ -272,14 +274,21 @@ let g:ale_linters = {
       \   'vim' : ['vint'],
       \   'html' : ['tidy']
       \}
-highlight ALEErrorSign ctermbg=black guibg=#3b7593 guifg=white ctermfg=black
-highlight ALEWarningSign ctermbg=black guibg=#3b7593 guifg=white ctermfg=black
-let g:ale_sign_error = '-'
-let g:ale_sign_warning = '#'
-let g:ale_statusline_format = [' E•%d', 'W•%d ', ' ⬥ ok ']
+highlight ALEErrorSign ctermbg=yellow guibg=#3b7593 guifg=white ctermfg=white
+highlight ALEWarningSign ctermbg=yellow guibg=#3b7593 guifg=white ctermfg=white
+" let g:ale_sign_error = '⨉'
+let g:ale_sign_error = emoji#for('small_red_triangle', '', 0)
+" let g:ale_sign_warning = '⬥ '
+let g:ale_sign_warning = emoji#for('warning')
+" let g:ale_statusline_format = [' E•%d', 'W•%d ', ' ⬥ ok ']
+let g:ale_statusline_format = ['⨉ %d', '⬥ %d']
 let g:ale_echo_msg_error_str = '✹ Error'
 let g:ale_echo_msg_warning_str = '⚠ Warning'
 let g:ale_echo_msg_format = '[#%linter%#] %s [%severity%]'
+let g:ale_sign_gui_color = '#ffffff'
+highlight clear ALEErrorSign
+highlight clear ALEWarningSign
+highlight SignColumn guibg=NONE
 nmap <silent> <c-m> <plug>(ale_previous)
 nmap <silent> <c-n> <plug>(ale_next)
 " ================= show extra white space =========================
@@ -288,7 +297,8 @@ set list listchars=tab:\ \ ,trail:·
 " highlight NonText guifg=#4a4a59
 highlight SpecialKey guibg=#454960 guifg=white
 match ExtraWhitespace /\s\+$/
-highlight LineNr ctermfg=grey ctermbg=white guibg=#444756 guifg=#cccccc
+highlight LineNr ctermfg=grey ctermbg=none guibg=NONE guifg=#5f6086
+highlight CursorLineNr ctermfg=grey ctermbg=none guibg=NONE guifg=#f3f7a2
 " ================ easyclip =====================================
 " let g:EasyClipAutoFormat = 1
 let g:EasyClipYankHistorySize = 10
