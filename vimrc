@@ -77,6 +77,8 @@ Plugin 'tacahiroy/ctrlp-funky'
 
 Plugin 'junegunn/vim-emoji'
 
+Plugin 'Valloric/YouCompleteMe'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 
@@ -240,6 +242,13 @@ map <Leader>a :call RunCurrentSpecFile()<CR>
 map <Leader>t :call RunNearestSpec()<CR>
 map <Leader>l :call RunLastSpec()<CR>
 
+" Tabular leader
+if exists(":Tabularize")
+  nmap <Leader>a= :Tabularize /=<CR>
+  vmap <Leader>a= :Tabularize /=<CR>
+  nmap <Leader>a: :Tabularize /:\zs<CR>
+  vmap <Leader>a: :Tabularize /:\zs<CR>
+endif
 " ================== Extra Functions ================================
 
 " stripping white space using <leader>q
