@@ -10,8 +10,9 @@ export ZSH=/Users/james/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 
 # ZSH_THEME="robbyrussell"
-ZSH_THEME="dracula"
+# ZSH_THEME="dracula"
 # ZSH_THEME="the-one"
+ZSH_THEME="agnoster"
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Uncomment the following line to use case-sensitive completion.
@@ -91,6 +92,8 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias pull='git pull origin'
 alias push='git push origin'
+alias gis='git status'
+alias g='git'
 alias checkout='git checkout .'
 
 # project alias
@@ -102,6 +105,7 @@ alias work-ready='cd ~/apps/work-ready/work-ready-frontend && ./dev-tmux'
 
 alias ns='npm start'
 alias be='bundle exec'
+alias bec='bundle exec cucumber'
 alias bt='bundle exec thin start'
 alias rc='bundle exec rails console'
 alias gp='git push origin master'
@@ -134,7 +138,6 @@ alias dc='docker-compose'
 
 alias samsung_admin='cd ~/apps/samsung_toolbox/samsung-tool-box'
 export EDITOR=/usr/local/bin/vim
-alias open_new_tab="array=\$(ruby -e 'require \"/Users/james/apps/samsung_toolbox/samsung-tool-box/lib/ec2_ips_getter\";Ec2IpsGetter.new.bash_array'); for ip in ( \$array ); do echo \${ip}; osascript -e 'tell application \"iTerm\" to activate' -e 'tell application \"System Events\" to tell process \"iTerm\" to keystroke \"t\" using command down' -e 'tell application \"System Events\" to tell process \"iTerm\" to keystroke \"ssh ubuntu@\${ip}\"' -e 'tell application \"System Events\" to tell process \"iTerm\" to key code 52'; done"
 alias arbitry_load="plutil -insert NSAppTransportSecurity -json '{\"NSAllowsArbitraryLoads\":true}' rubify/Info.plist"
 
 fancy-ctrl-z () {
@@ -182,3 +185,8 @@ eval $(thefuck --alias)
 export BUNDLE_ID=com.quadmark.fxtestapp
 export DEVICE_TARGET=48e0f20ddb735a99b50f9d50e495c7fe20730b38
 export DEVICE_ENDPOINT=http://192.168.1.180:37265
+
+function vim {
+  # /Applications/MacVim.app/Contents/bin/mvim -v $argv
+  nvim $argv
+}

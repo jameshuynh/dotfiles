@@ -1,3 +1,4 @@
+language en_US
 set guifont=Inconsolata\ for\ Powerline:h18
 "n================= All Plugins ===========================
 filetype off                  " required
@@ -80,6 +81,10 @@ Plugin 'junegunn/vim-emoji'
 Plugin 'Valloric/YouCompleteMe'
 
 Plugin 'ElmCast/elm-vim'
+
+Plugin 'ianks/vim-tsx'
+
+Plugin 'leafgarland/typescript-vim'
 
 " Plugin 'flowtype/vim-flow'
 
@@ -296,6 +301,8 @@ endfunction
 nnoremap <leader>q :call <SID>StripTrailingWhitespaces()<CR>
 " ===================================================================
 
+let g:deoplete#enable_at_startup = 1
+
 " ================ ag config =======================================
 let g:ag_prg = 'ag --vimgrep'
 let g:ag_mapping_message=0
@@ -308,6 +315,7 @@ nmap \ :Ag!<Space>
 " let g:syntastic_javascript_checkers=['eslint']
 " let g:ale_lint_on_save = 1
 let g:ale_linters = {
+      \   'typescript': ['tslint'],
       \   'javascript': ['eslint'],
       \   'ruby': ['rubocop', 'mri'],
       \   'vim' : ['vint'],
@@ -318,7 +326,8 @@ highlight ALEWarningSign ctermbg=yellow guibg=#3b7593 guifg=white ctermfg=white
 " let g:ale_sign_error = '⨉'
 let g:ale_sign_error = emoji#for('small_red_triangle', '', 0)
 " let g:ale_sign_warning = '⬥ '
-let g:ale_sign_warning = emoji#for('warning')
+" let g:ale_sign_warning = emoji#for('warning')
+let g:ale_sign_warning = emoji#for('small_orange_diamond')
 " let g:ale_statusline_format = [' E•%d', 'W•%d ', ' ⬥ ok ']
 let g:ale_statusline_format = ['⨉ %d', '⬥ %d']
 let g:ale_echo_msg_error_str = '✹ Error'
@@ -410,3 +419,4 @@ function! s:ChangeHashSyntax(line1,line2)
 endfunction
 
 command! -range=% ChangeHashSyntax call <SID>ChangeHashSyntax(<line1>,<line2>)
+let g:deoplete#enable_at_startup = 1
