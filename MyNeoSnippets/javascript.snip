@@ -1,0 +1,104 @@
+# Import only React
+snippet ri
+	import React from 'react';
+
+# Import both React and Component
+snippet rip
+	import React, { Component } from 'react';
+	import PropTypes from 'prop-types';
+
+# React class
+snippet clare
+	class ${1:MyComponent} extends React.Component {
+		render() {
+			return (
+				${0:<div></div>}
+			);
+		}
+	}
+
+# componentWillMount
+snippet cwm
+  componentWillMount() {
+    ${0}
+  }
+
+# componentDidMount
+snippet cdm
+  componentDidMount() {
+    ${0}
+  }
+
+# componentWillReceiveProps
+snippet cwr
+  componentWillReceiveProps(nextProps) {
+    ${0}
+  }
+
+# Full ReactJS Class
+snippet fcl
+options head
+  import React, { Component } from 'react';
+	import PropTypes from 'prop-types';
+	export default class ${1:MyComponent} extends Component {
+		render() {
+			return (
+				${0:<div></div>}
+			);
+		}
+	};
+
+# React constructor
+snippet con
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			${1}: ${0},
+		};
+	}
+
+# Proptypes for React Class
+snippet prt
+	static propTypes = {
+		${1}: PropTypes.${0}
+	};
+
+# Default props for React Class
+snippet dpr
+	static defaultProps = {
+		${1}: ${0}
+	};
+
+# Proptypes for Presentational component
+snippet rpt
+	${1}.propTypes = {
+		${2}: PropTypes.${0},
+	}
+
+# Default props for Presentational component
+snippet rdp
+	${1}.defaultProps = {
+		${2}: ${0},
+	}
+
+# State
+snippet sst
+	this.setState({
+		${1}: ${0}
+	})
+
+snippet gst
+	this.state.${0}
+
+# Props
+snippet rp
+	this.props.${0}
+
+snippet cfn
+  ${1}() {
+    ${2}
+  }
+
+snippet rt
+  return;

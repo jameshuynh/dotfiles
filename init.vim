@@ -1,98 +1,75 @@
-language en_US
-set guifont=Inconsolata\ for\ Powerline:h18
-"n================= All Plugins ===========================
-filetype off                  " required
-" set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+" cal dein#add('rking/ag.vim') " Full Text Search
+" Author: James
+" repo: http://github.com/jameshuynh/dotfile
 
-" Vim Bundle
-Plugin 'gmarik/Vundle.vim'
+" Setup dein  ---------------------------------------------------------------{{{
+if (!isdirectory(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")))
+  call system(expand("mkdir -p $HOME/.config/nvim/repos/github.com"))
+  call system(expand("git clone https://github.com/Shougo/dein.vim $HOME/.config/nvim/repos/github.com/Shougo/dein.vim"))
+endif
 
-" Syntax Highlight for JSX
-Plugin 'mxw/vim-jsx'
+set runtimepath+=~/.config/nvim/repos/github.com/Shougo/dein.vim/
+call dein#begin(expand('~/.config/nvim'))
 
-" Fuzzy Search
-Plugin 'ctrlpvim/ctrlp.vim'
+call dein#add('mxw/vim-jsx')
+call dein#add('godlygeek/tabular') " Tabular
+call dein#add('plasticboy/vim-markdown') "Mark down
+call dein#add('AndrewRadev/splitjoin.vim') " Split & Join
+call dein#add('tpope/vim-surround.git')
+call dein#add('tpope/vim-commentary')
+call dein#add('christoomey/vim-tmux-navigator')
+call dein#add('w0rp/ale') " Syntactic Check
+call dein#add('tpope/vim-repeat')
+call dein#add('vim-airline/vim-airline')
+call dein#add('vim-airline/vim-airline-themes')
+call dein#add('metakirby5/codi.vim')
+call dein#add('vim-scripts/vim-auto-save')
+call dein#add('tpope/vim-rails')
+call dein#add('christoomey/vim-tmux-runner')
+call dein#add('thoughtbot/vim-rspec')
+call dein#add('junegunn/vim-emoji')
+call dein#add('ElmCast/elm-vim')
+call dein#add('ianks/vim-tsx')
+call dein#add('leafgarland/typescript-vim')
+call dein#add('posva/vim-vue')
+call dein#add('prettier/vim-prettier')
+call dein#add('ap/vim-css-color')
+call dein#add('itmammoth/doorboy.vim')
+call dein#add('tpope/vim-fugitive')
+call dein#add('junegunn/gv.vim')
+call dein#add('mattn/emmet-vim')
+call dein#add('svermeulen/vim-easyclip')
+call dein#add('vim-ruby/vim-ruby')
 
-" Tabular
-Plugin 'godlygeek/tabular'
+call dein#add('Shougo/neocomplete')
+call dein#add('Shougo/neosnippet')
+call dein#add('Shougo/neosnippet-snippets')
 
-" Markdown
-Plugin 'plasticboy/vim-markdown'
+" deoplete stuff
+call dein#add('Shougo/deoplete.nvim')
+call dein#add('Shougo/deol.nvim')
 
-" ack search
-Plugin 'rking/ag.vim'
+call dein#add('junegunn/fzf', { 'build': './install' })
+call dein#add('junegunn/fzf.vim', { 'depends': 'junegunn/fzf' })
+if dein#check_install()
+  call dein#install()
+  let pluginsExist=1
+endif
 
-" splitjoin
-Plugin 'AndrewRadev/splitjoin.vim'
+call dein#end()
+filetype plugin indent on
 
-" allow changing surrounding like double quote
-Plugin 'tpope/vim-surround.git'
+"}}}
 
-" allow to comment using gc or gcc key
-Plugin 'tpope/vim-commentary'
-
-" allow navigate with tmux
-Plugin 'christoomey/vim-tmux-navigator'
-
-" syntastic check
-" Plugin 'scrooloose/syntastic'
-Plugin 'w0rp/ale'
-
-" enable repeating supported plugin maps
-Plugin 'tpope/vim-repeat'
-
-" manage clipboard
-Plugin 'svermeulen/vim-easyclip'
-
-" Vim airline for status bar
-Plugin 'vim-airline/vim-airline'
-
-" Vim airline theme
-Plugin 'vim-airline/vim-airline-themes'
-
-" Live Coding
-Plugin 'metakirby5/codi.vim'
-
-" Auto save
-Plugin 'vim-scripts/vim-auto-save'
-
-" Vim Rails
-Plugin 'tpope/vim-rails'
-
-" Vim Tmux Runner
-Plugin 'christoomey/vim-tmux-runner'
-
-" Vim Rspec
-Plugin 'thoughtbot/vim-rspec'
-
-" Auto Completion
-Plugin 'ervandew/supertab'
-
-" Dracula Theme
-" Plugin 'dracula/vim'
-
-" Function navigation
-Plugin 'tacahiroy/ctrlp-funky'
-
-Plugin 'junegunn/vim-emoji'
-
-Plugin 'Valloric/YouCompleteMe'
-
-Plugin 'ElmCast/elm-vim'
-
-Plugin 'ianks/vim-tsx'
-
-Plugin 'leafgarland/typescript-vim'
-
-" Plugin 'flowtype/vim-flow'
-
-call vundle#end()            " required
-filetype plugin indent on    " required
+let g:prettier#exec_cmd_async = 1
+let g:prettier#quickfix_enabled = 0
+let g:prettier#autoformat = 0
+let g:prettier#config#trailing_comma = 'none'
+let g:prettier#config#bracket_spacing = 'true'
+autocmd BufWritePre *.js,*.json,*.css,*.scss,*.less,*.graphql PrettierAsync
 
 " ================= All Settings ===========================
-
+filetype off            " required
 set nocompatible        " be iMproved, required
 set backspace=2         " backspace in insert mode works like normal editor
 syntax on               " syntax highlighting
@@ -102,8 +79,9 @@ set autoindent          " auto indenting
 set relativenumber      " line numbers
 set number
 set numberwidth=4       " number column space
-set background=dark
-colorscheme codeschool     " colorscheme dracula
+set background=light
+colorscheme solarized  " colorscheme solarized
+
 set synmaxcol=80        " max color at 80
 set nobackup            " get rid of anoying ~file
 set nowritebackup       " get rid of annoying ~file
@@ -119,33 +97,18 @@ set ruler               " show the cursor position all the time
 set laststatus=2        " Always display the status line
 set lazyredraw          " Wait to redraw
 set ttyfast
-" set ignorecase
 set smartcase
-
-" Enable true color for vim, yay!
-" let &t_8f="\e[38;2;%ld;%ld;%ldm"
-" let &t_8b="\e[48;2;%ld;%ld;%ldm"
-" n set guicolors
 set termguicolors
-" End
-
-" split below and right vim
 set splitbelow
 set splitright
-
+set nofoldenable
 set pastetoggle=<F2>    "turn on/off paste mode
-
-" search using ag
 set grepprg=ag
-
 " To turn off error beeping and flashing in Vim
 set vb t_vb=
-
 " Clear background terminal color option
 set t_ut=
-
-set clipboard=unnamed " make clipboard shared between vim and other app
-
+set clipboard+=unnamedplus " make clipboard shared between vim and other app
 " prevent ag search to flash the search result
 " set t_ti= t_te=
 set shellpipe=>
@@ -168,6 +131,9 @@ nmap <silent> <c-k> <c-w>k<CR>
 nmap <silent> <c-j> <c-w>j<CR>
 nmap <silent> <c-h> <c-w>h<CR>
 nmap <silent> <c-l> <c-w>l<CR>
+
+" copy current files path to clipboard
+nmap cp :let @+= expand("%") <cr>
 
 " nmap 0 ^
 " nmap 4 $
@@ -204,6 +170,15 @@ nmap <leader>so :source $MYVIMRC<cr>
 
 nmap <leader>pi :PluginInstall<cr>
 
+" Show all git commits
+nmap <leader>gc :GV<cr>
+
+" Show all git commits related to the current file
+nmap <leader>gcf :GV!<cr>
+
+silent! nunmap! <Leader>p
+nmap <Leader>p :PrettierAsync<cr>
+
 " toggle relative number
 function! NumberToggle()
   if(&relativenumber == 1)
@@ -223,6 +198,7 @@ nmap <leader>vp :vsp<cr>
 nmap <leader>ccl :ccl<cr>
 nmap <leader>qq :wq<cr>
 nmap <leader>sa <esc>ggVG
+nmap <leader>ca <esc>ggVGy
 nmap <leader>- :wincmd _<cr>:wincmd \|<cr>
 nmap <leader>= :wincmd =<cr>
 nmap <leader>h :nohlsearch<cr>
@@ -260,6 +236,7 @@ cmap <c-v> <plug>EasyClipCommandModePaste
 imap <c-v> <plug>EasyClipInsertModePaste
 
 nmap <c-q> :echoe hello<cr>
+nmap <c-p> :Files<cr>
 
 "" RSpec.vim mappings
 let g:rspec_command = "VtrSendCommandToRunner! rspec {spec}"
@@ -277,10 +254,6 @@ endif
 
 nmap <leader>ch <esc>:ChangeHashSyntax<cr>
 nmap <leader>rt <esc>:retab<cr>
-
-" ============== ctrl-p funky
-nnoremap <Leader>fu :CtrlPFunky<Cr>
-nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
 
 " ========== ELM
 nnoremap <Leader>m :call elm#Make()<CR>
@@ -304,9 +277,8 @@ nnoremap <leader>q :call <SID>StripTrailingWhitespaces()<CR>
 let g:deoplete#enable_at_startup = 1
 
 " ================ ag config =======================================
-let g:ag_prg = 'ag --vimgrep'
-let g:ag_mapping_message=0
-nmap \ :Ag!<Space>
+" let g:ag_prg = 'ag --vimgrep'
+" let g:ag_mapping_message=0
 " =============== syntastic ========================================
 " let g:syntastic_auto_jump=0
 " let g:syntastic_enable_signs=1
@@ -340,63 +312,45 @@ highlight SignColumn guibg=NONE
 nmap <silent> <c-m> <plug>(ale_previous)
 nmap <silent> <c-n> <plug>(ale_next)
 " ================= show extra white space =========================
-highlight ExtraWhitespace ctermbg=black guibg=#454960 guifg=#f197e3 ctermfg=black
+highlight ExtraWhitespace ctermbg=black guibg=NONE guifg=#bcc7c2 ctermfg=NONE
 set list listchars=tab:\ \ ,trail:·
-" highlight NonText guifg=#4a4a59
-highlight SpecialKey guibg=#454960 guifg=white
+highlight SpecialKey guibg=#bcc7c2 guifg=white
 match ExtraWhitespace /\s\+$/
-highlight LineNr ctermfg=grey ctermbg=none guibg=NONE guifg=#5f6086
-highlight CursorLineNr ctermfg=grey ctermbg=none guibg=NONE guifg=#f3f7a2
+highlight LineNr ctermfg=grey ctermbg=none guibg=#eee8d5 guifg=#bcc7c2
+highlight CursorLineNr ctermfg=grey ctermbg=none guibg=NONE guifg=NONE
 " ================ easyclip =====================================
-" let g:EasyClipAutoFormat = 1
+let g:EasyClipAutoFormat = 0
 let g:EasyClipYankHistorySize = 10
 let g:EasyClipAlwaysMoveCursorToEndOfPaste = 0
-let g:EasyClipShareYanks = 1
-let g:EasyClipShareYanksDirectory = '~/.vim/easyclip'
-let g:EasyClipShareYanksFile = 'yanks'
+" let g:EasyClipShareYanks = 1
+" let g:EasyClipShareYanksDirectory = '~/.vim/easyclip'
+" let g:EasyClipShareYanksFile = 'yanks'
 let g:EasyClipUsePasteToggleDefaults = 0
-let g:EasyClipEnableBlackHoleRedirect = 0
+" let g:EasyClipEnableBlackHoleRedirect = 0
 let g:EasyClipUseSubstituteDefaults = 1
 " airline
 let g:airline_powerline_fonts = 1
-let g:airline_theme='base16_tomorrow'
+let g:airline_solarized_bg='light'
+let g:airline_theme='solarized'
 " let g:airline_left_sep=''
 " let g:airline_right_sep=''
 
-nmap <leader>pf <plug>EasyClipToggleFormattedPaste
+" nmap <leader>pf <plug>EasyClipToggleFormattedPaste
 imap <c-v> <plug>EasyClipInsertModePaste
 cmap <c-v> <plug>EasyClipCommandModePaste
 nmap P <plug>EasyClipSwapPasteForward
 nmap N <plug>EasyClipSwapPasteBackwards
-nmap <leader>p :IPaste <cr>
+" nmap <leader>p :IPaste <cr>
 " ============= SplitJoin ====================
 let g:splitjoin_ruby_hanging_args = 0
 let g:splitjoin_ruby_trailing_comma = 0
 "============== Ctrlp =======================
 " set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.yardoc/*,*.exe,*.so,*.dat
 let g:ctrlp_custom_ignore = {
-      \ 'dir': '\.git$\|\.yardoc\|node_modules\|log\|tmp\|dist\|uploads$',
+      \ 'dir': '\.git$\|\.yardoc\|node_modules\|log$\|tmp\|dist\|uploads$',
       \ 'file': '\v\.(exe|so|dll|jpg|png|gif)$',
       \ 'link': 'some_bad_symbolic_links',
       \ }
-" CtrlP auto cache clearing.
-" ----------------------------------------------------------------------------
-" function! SetupCtrlP()
-"   if exists("g:loaded_ctrlp") && g:loaded_ctrlp
-"     augroup CtrlPExtension
-"       autocmd!
-"       autocmd FocusGained  * CtrlPClearCache
-"       autocmd BufWritePost * CtrlPClearCache
-"     augroup END
-"   endif
-" endfunction
-" if has("autocmd")
-"   autocmd VimEnter * :call SetupCtrlP()
-" endif
-
-" let g:ctrlp_user_command = 'ag %s -l --hidden --nocolor -g ""'
-" let g:ctrlp_use_caching = 0
-
 " ============= Auto Save ======================
 let g:auto_save = 1
 let g:auto_save_in_insert_mode = 0
@@ -420,3 +374,51 @@ endfunction
 
 command! -range=% ChangeHashSyntax call <SID>ChangeHashSyntax(<line1>,<line2>)
 let g:deoplete#enable_at_startup = 1
+
+" fzf actions
+let g:fzf_action = {
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--no-color', fzf#vim#with_preview(), <bang>0)
+
+" Snipppets -----------------------------------------------------------------{{{
+
+" Enable snipMate compatibility feature.
+let g:neosnippet#enable_snipmate_compatibility = 1
+let g:neosnippet#snippets_directory="~/.config/nvim/MyNeoSnippets"
+" SuperTab like snippets behavior.
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+\ "\<Plug>(neosnippet_expand_or_jump)"
+\: "\<TAB>"
+let g:neosnippet#enable_auto_clear_markers=0
+nmap <leader>nse :NeoSnippetEdit -horizontal -split<cr>
+nmap <leader>nsl ::NeoSnippetSource ~/.config/nvim/MyNeoSnippets/*<cr>
+"}}}
+"
+"
+let g:ruby_indent_assignment_style = 'hanging'
+let g:ruby_indent_block_style = 'do'
+let g:ruby_indent_access_modifier_style = 'normal'
+silent! unmap \
+nmap \ :Ag<Space>
+
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+

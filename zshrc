@@ -1,8 +1,5 @@
-export PATH="$HOME/.rbenv/bin:$PATH"
-eval "$(rbenv init -)"
-
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/james/.oh-my-zsh
+export ZSH=~/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -12,9 +9,11 @@ export ZSH=/Users/james/.oh-my-zsh
 # ZSH_THEME="robbyrussell"
 # ZSH_THEME="dracula"
 # ZSH_THEME="the-one"
-ZSH_THEME="agnoster"
+# ZSH_THEME="agnoster"
+autoload -U promptinit; promptinit
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=246'
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
 
@@ -61,7 +60,7 @@ plugins=(git)
 
 # User configuration
 
-export PATH="/Users/james/.rbenv/shims:/Users/james/.rbenv/bin:/Users/james/work/adt-bundle-mac/sdk/tools:/opt/chefdk/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/TeX/texbin"
+export PATH="~/.rbenv/shims:~/.rbenv/bin:~/work/adt-bundle-mac/sdk/tools:/opt/chefdk/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/TeX/texbin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -70,11 +69,11 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-# if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
-# else
-#   export EDITOR='mvim'
-# fi
+if [[ -n $SSH_CONNECTION ]]; then
+  export EDITOR='vim'
+else
+  export EDITOR='nvim'
+fi
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -118,7 +117,7 @@ alias 'j'='jekyll'
 alias 'js'='jekyll serve --watch'
 alias autossh='autossh -M $(($RANDOM%6400 + 1024))'
 alias resolve="a=\`git diff --name-only --diff-filter=U\`;y=;IFS=$'\n' read -rd '' -a y <<< \"$a\";for i in ${y[@]}; do echo \"$i\"; done"
-alias resolve="git diff --name-only --diff-filter=U -z | xargs -0 bash -c '</dev/tty vim \"\$@\"' x"
+alias resolve="git diff --name-only --diff-filter=U -z | xargs -0 bash -c '</dev/tty nvim \"\$@\"' x"
 alias id_rsa_gen='echo ssh-keygen -t rsa -b 4096 -C "your_email@example.com" | pbcopy'
 alias cp_id_rsa='cat ~/.ssh/id_rsa.pub | pbcopy'
 alias ctags_index='ctags -R --languages=ruby --exclude=.git --exclude=log . $(bundle list --paths)'
@@ -126,9 +125,9 @@ alias jhdownloadmanager='cd ~/apps/JHDownloadManager'
 alias cleardns='sudo killall -HUP mDNSResponder'
 alias purgeallbuilds='rm -rf ~/Library/Developer/Xcode/DerivedData/*'
 alias fedex_cs_admin='cd ~/apps/fedex/fedex_cs_admin_dashboard'
-alias rd2='cd /Users/james/apps/gems/rubify_dashboard_2/rubify-react-form'
-alias rg2='cd /Users/james/apps/gems/rubify_dashboard_2/rubify-react-grid && g .'
-alias fedex_cs_xcode='open /Users/james/apps/fedex/fedex-apj-cs-ipad/fedex-cs-apj.xcworkspace'
+alias rd2='cd ~/apps/gems/rubify_dashboard_2/rubify-react-form'
+alias rg2='cd ~/apps/gems/rubify_dashboard_2/rubify-react-grid && g .'
+alias fedex_cs_xcode='open ~/apps/fedex/fedex-apj-cs-ipad/fedex-cs-apj.xcworkspace'
 alias chrome="/Applications/Google\ Chrome\ Canary.app/Contents/MacOS/Google\ Chrome\ Canary"
 
 alias dc-web='docker-compose run web'
@@ -151,7 +150,6 @@ fancy-ctrl-z () {
 }
 export TERM=xterm-256color
 eval "$(direnv hook zsh)"
-unalias gm
 
 # Vim Mode for command lin
 # bindkey -v
@@ -175,7 +173,7 @@ export KEYTIMEOUT=1
 
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
-source /Users/james/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export TM_RUBY=$HOME/.rbenv/shims/ruby
 # eval $(/usr/libexec/path_helper -s)
@@ -190,3 +188,63 @@ function vim {
   # /Applications/MacVim.app/Contents/bin/mvim -v $argv
   nvim $argv
 }
+
+if [[ ! -n "$TMUX" ]] &&
+        [[ "$SSH_CONNECTION" == "" ]]; then
+    # Attempt to discover a detached session and attach
+    # it, else create a new session
+
+    if tmux has-session -t base >/dev/null; then
+        tmux attach-session -t base
+    else
+        tmux new-session -s base
+    fi
+else
+
+    # One might want to do other things in this case,
+    # here I print my motd, but only on servers where
+    # one exists
+
+    # If inside tmux session then print MOTD
+    MOTD=/etc/motd.tcl
+    if [ -f $MOTD ]; then
+        $MOTD
+    fi
+fi
+
+export PATH="$HOME/.rbenv/bin:$PATH"
+eval "$(rbenv init -)"
+
+# Setting ag as the default source for fzf
+export FZF_DEFAULT_COMMAND='ag -g ""'
+
+_gen_fzf_default_opts() {
+  local base03="234"
+  local base02="235"
+  local base01="240"
+  local base00="241"
+  local base0="244"
+  local base1="245"
+  local base2="254"
+  local base3="230"
+  local yellow="136"
+  local orange="166"
+  local red="160"
+  local magenta="125"
+  local violet="61"
+  local blue="33"
+  local cyan="37"
+  local green="64"
+
+  # Comment and uncomment below for the light theme.
+
+  ## Solarized Light color scheme for fzf
+  export FZF_DEFAULT_OPTS="
+   --color fg:-1,bg:-1,hl:$blue,fg+:$base02,bg+:$base2,hl+:$blue
+   --color info:$yellow,prompt:$yellow,pointer:$base03,marker:$base03,spinner:$yellow
+  "
+}
+
+_gen_fzf_default_opts
+
+prompt pure
