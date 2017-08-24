@@ -45,6 +45,8 @@ call dein#add('Shougo/neocomplete')
 call dein#add('Shougo/neosnippet')
 call dein#add('Shougo/neosnippet-snippets')
 
+call dein#add('ternjs/tern_for_vim')
+
 " deoplete stuff
 call dein#add('Shougo/deoplete.nvim')
 call dein#add('Shougo/deol.nvim')
@@ -384,7 +386,7 @@ let g:fzf_action = {
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
 
-" command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--no-color', fzf#vim#with_preview(), <bang>0)
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--no-color', fzf#vim#with_preview(), <bang>0)
 
 " Snipppets -----------------------------------------------------------------{{{
 
@@ -426,3 +428,4 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
+let g:tern#command=["/Users/james/.config/nvim/repos/github.com/ternjs/tern_for_vim/node_modules/tern/bin/tern"]
