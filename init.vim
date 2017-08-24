@@ -49,6 +49,8 @@ call dein#add('Shougo/neosnippet-snippets')
 call dein#add('Shougo/deoplete.nvim')
 call dein#add('Shougo/deol.nvim')
 
+call dein#add('tpope/vim-endwise')
+
 call dein#add('junegunn/fzf', { 'build': './install' })
 call dein#add('junegunn/fzf.vim', { 'depends': 'junegunn/fzf' })
 if dein#check_install()
@@ -66,7 +68,7 @@ let g:prettier#quickfix_enabled = 0
 let g:prettier#autoformat = 0
 let g:prettier#config#trailing_comma = 'none'
 let g:prettier#config#bracket_spacing = 'true'
-autocmd BufWritePre *.js,*.json,*.css,*.scss,*.less,*.graphql PrettierAsync
+" autocmd BufWritePre *.js,*.json,*.css,*.scss,*.less,*.graphql PrettierAsync
 
 " ================= All Settings ===========================
 filetype off            " required
@@ -95,7 +97,7 @@ set incsearch           " do incremental searching
 set hlsearch
 set ruler               " show the cursor position all the time
 set laststatus=2        " Always display the status line
-set lazyredraw          " Wait to redraw
+" set lazyredraw          " Wait to redraw
 set ttyfast
 set smartcase
 set termguicolors
@@ -202,6 +204,8 @@ nmap <leader>ca <esc>ggVGy
 nmap <leader>- :wincmd _<cr>:wincmd \|<cr>
 nmap <leader>= :wincmd =<cr>
 nmap <leader>h :nohlsearch<cr>
+
+nmap <leader>of :! open .<cr>
 
 " tmux runner
 nnoremap <leader>irb :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'irb' }<cr>
@@ -380,7 +384,7 @@ let g:fzf_action = {
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
 
-command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--no-color', fzf#vim#with_preview(), <bang>0)
+" command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--no-color', fzf#vim#with_preview(), <bang>0)
 
 " Snipppets -----------------------------------------------------------------{{{
 

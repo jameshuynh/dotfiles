@@ -810,7 +810,7 @@ snippet defparams
     )
 	end
 snippet command_class
-	class ${1:class_name}
+	class ${1:`substitute(vim_snippets#Filename(), '\(_\|^\)\(.\)', '\u\2', 'g')`}
     prepend SimpleCommand
 
     def initialize(opts = {})

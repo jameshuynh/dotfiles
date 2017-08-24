@@ -102,3 +102,41 @@ snippet cfn
 
 snippet rt
   return;
+
+snippet axiosClient
+  let axios = require('axios');
+
+  let axiosClient = axios.create({
+    baseURL: process.env.REACT_APP_API_BASE_URL
+  });
+
+  export default axiosClient;
+
+snippet axiossend
+  axiosClient
+    .${1:post}('${2}', {})
+    .then(response => {
+      console.log(response.data);
+    })
+    .catch(err => {
+      console.log(err.response.data);
+    });
+
+snippet onchange
+  _handleOn${1}Change(event) {
+    this.setState({
+      ${2}: event.target.value
+    });
+  }
+snippet proptypes
+  static propTypes = {
+    ${1:key}: PropTypes.${2}
+  }
+
+snippet defaultProps
+  static defaultProps = {
+    ${1:key}: ${2:value}
+  }
+
+snippet importcookies
+  import { CookiesProvider, withCookies, Cookies } from 'react-cookie';

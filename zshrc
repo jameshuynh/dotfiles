@@ -94,6 +94,7 @@ alias push='git push origin'
 alias gis='git status'
 alias g='git'
 alias checkout='git checkout .'
+alias gitreset='git checkout . && git clean -df'
 
 # project alias
 alias vitamin-lms='cd ~/apps/vitamin-lms/vitamin-lms-admin/ && ./dev-tmux'
@@ -108,6 +109,7 @@ alias bec='bundle exec cucumber'
 alias bt='bundle exec thin start'
 alias rc='bundle exec rails console'
 alias gp='git push origin master'
+alias gits='git status'
 alias gpu='git pull origin master'
 alias co='git checkout'
 alias v='vim'
@@ -136,7 +138,6 @@ alias dc-rspec='docker-compose run web rspec'
 alias dc='docker-compose'
 
 alias samsung_admin='cd ~/apps/samsung_toolbox/samsung-tool-box'
-export EDITOR=/usr/local/bin/vim
 alias arbitry_load="plutil -insert NSAppTransportSecurity -json '{\"NSAllowsArbitraryLoads\":true}' rubify/Info.plist"
 
 fancy-ctrl-z () {
@@ -216,7 +217,7 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
 # Setting ag as the default source for fzf
-export FZF_DEFAULT_COMMAND='ag -g ""'
+# export FZF_DEFAULT_COMMAND='ag -g ""'
 
 _gen_fzf_default_opts() {
   local base03="234"
