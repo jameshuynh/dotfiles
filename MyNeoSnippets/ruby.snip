@@ -156,7 +156,7 @@ snippet atp
 snippet ata
 	attr_accessible :${0:attr_names}
 snippet ana
-	accepts_nested_attributes_for :${0:association}
+	accepts_nested_attributes_for :${0:association}, allow_destroy: true
 # ivc == instance variable cache
 snippet ivc
 	@${1:variable_name} ||= ${0:cached_value}
@@ -1204,3 +1204,85 @@ snippet isresw
 	it { should respond_to(:${1}).with(${0}).arguments }
 snippet super_call
 	${1:super_class}.instance_method(:${0:method}).bind(self).call
+
+snippet rbd
+  # rubocop:disable ${1}
+snippet rbdabc
+  # rubocop:disable Metrics/AbcSize
+snippet rbdml
+  # rubocop:disable MethodLength
+snippet rbdcc
+  # rubocop:disable CyclomaticComplexity
+snippet rbdpc
+  # rubocop:disable PerceivedComplexity
+
+snippet getter
+  def ${1}
+    @$1 ||= ${2}
+  end
+
+snippet authorizeapi
+  class AuthorizeApiRequest
+    prepend SimpleCommand
+
+    def initialize(headers = {})
+      @headers = headers
+    end
+
+    def call
+      user
+    end
+
+    private
+
+    attr_reader :headers
+
+    def user
+      if decoded_auth_token
+        @user ||= User.find_by_id(decoded_auth_token[:user_id])
+      end
+      @user || errors.add(:token, 'Invalid token') && nil
+    end
+
+    def decoded_auth_token
+      @decoded_auth_token ||= JsonWebToken.decode(http_auth_header)
+    end
+
+    def http_auth_header
+      if headers['Authorization'].present?
+        return headers['Authorization'].split(' ').last
+      end
+
+      errors.add(:token, 'Missing token')
+      nil
+    end
+  end
+
+snippet applicationcontroller
+  class ApplicationController < ActionController::API
+    before_action :authenticate_request
+    attr_reader :current_user
+
+    private
+
+    def authenticate_request
+      render json: { error: 'Not Authorized' }, status: 401 unless current_user
+    end
+
+    def current_user
+      @current_user ||=
+        if params[:auth_token]
+          AuthorizeApiRequest.call(
+            'Authorization' => "Base #{params[:auth_token]}"
+          ).result
+        else
+          AuthorizeApiRequest.call(request.headers).result
+        end
+    end
+  end
+snippet user_auth
+  has_secure_password validations: ${1}
+
+snippet abc
+  def abc
+  end

@@ -102,6 +102,7 @@ alias rubify-form='cd ~/apps/lab/rubify-react-form && ./dev-tmux'
 alias rubify-grid='cd ~/apps/lab/rubify-react-grid && ./dev-tmux'
 alias amazing-borneo='cd ~/apps/ab/ab-frontend && ./dev-tmux'
 alias work-ready='cd ~/apps/work-ready/work-ready-frontend && ./dev-tmux'
+alias motorist='cd ~/apps/motorist'
 
 alias ns='npm start'
 alias be='bundle exec'
@@ -136,6 +137,7 @@ alias dc-web='docker-compose run web'
 alias dc-migrate='docker-compose run web rails db:migrate'
 alias dc-rspec='docker-compose run web rspec'
 alias dc='docker-compose'
+alias whoisonport='lsof -i tcp:3000'
 
 alias samsung_admin='cd ~/apps/samsung_toolbox/samsung-tool-box'
 alias arbitry_load="plutil -insert NSAppTransportSecurity -json '{\"NSAllowsArbitraryLoads\":true}' rubify/Info.plist"
@@ -217,7 +219,7 @@ export PATH="$HOME/.rbenv/bin:$PATH"
 eval "$(rbenv init -)"
 
 # Setting ag as the default source for fzf
-# export FZF_DEFAULT_COMMAND='ag -g ""'
+export FZF_DEFAULT_COMMAND='ag -g ""'
 
 _gen_fzf_default_opts() {
   local base03="234"
@@ -249,3 +251,9 @@ _gen_fzf_default_opts() {
 _gen_fzf_default_opts
 
 prompt pure
+
+# Setting ag as the default source for fzf
+export FZF_DEFAULT_COMMAND='ag -g ""'
+
+# To apply the command to CTRL-T as well
+export FZF_DEFAULT_COMMAND='ag --hidden --ignore .git -g ""'

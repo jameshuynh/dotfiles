@@ -8,6 +8,8 @@ if (!isdirectory(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")))
   call system(expand("git clone https://github.com/Shougo/dein.vim $HOME/.config/nvim/repos/github.com/Shougo/dein.vim"))
 endif
 
+language en_US
+
 set runtimepath+=~/.config/nvim/repos/github.com/Shougo/dein.vim/
 call dein#begin(expand('~/.config/nvim'))
 
@@ -45,16 +47,24 @@ call dein#add('Shougo/neocomplete')
 call dein#add('Shougo/neosnippet')
 call dein#add('Shougo/neosnippet-snippets')
 
-call dein#add('ternjs/tern_for_vim')
+" call dein#add('ternjs/tern_for_vim')
 
 " deoplete stuff
 call dein#add('Shougo/deoplete.nvim')
 call dein#add('Shougo/deol.nvim')
 
 call dein#add('tpope/vim-endwise')
+call dein#add('rakr/vim-one')
 
 call dein#add('junegunn/fzf', { 'build': './install' })
 call dein#add('junegunn/fzf.vim', { 'depends': 'junegunn/fzf' })
+
+call dein#add('scrooloose/nerdtree')
+
+" replace in multiple files
+call dein#add('brooth/far.vim')
+call dein#add('henrik/vim-reveal-in-finder')
+
 if dein#check_install()
   call dein#install()
   let pluginsExist=1
@@ -83,8 +93,8 @@ set autoindent          " auto indenting
 set relativenumber      " line numbers
 set number
 set numberwidth=4       " number column space
-set background=light
-colorscheme solarized  " colorscheme solarized
+set background=dark
+colorscheme one  " colorscheme solarized
 
 set synmaxcol=80        " max color at 80
 set nobackup            " get rid of anoying ~file
@@ -177,11 +187,18 @@ nmap <leader>pi :PluginInstall<cr>
 " Show all git commits
 nmap <leader>gc :GV<cr>
 
+" Show all git commits
+nmap <leader>rf :Reveal<cr>
+
 " Show all git commits related to the current file
 nmap <leader>gcf :GV!<cr>
 
+" close everything except the current focusing
+nmap <leader>ol :only<cr>
+
 silent! nunmap! <Leader>p
 nmap <Leader>p :PrettierAsync<cr>
+map <C-t> :NERDTreeToggle<CR>
 
 " toggle relative number
 function! NumberToggle()
@@ -202,7 +219,7 @@ nmap <leader>vp :vsp<cr>
 nmap <leader>ccl :ccl<cr>
 nmap <leader>qq :wq<cr>
 nmap <leader>sa <esc>ggVG
-nmap <leader>ca <esc>ggVGy
+nmap <leader>ca <esc>:%y+<cr>
 nmap <leader>- :wincmd _<cr>:wincmd \|<cr>
 nmap <leader>= :wincmd =<cr>
 nmap <leader>h :nohlsearch<cr>
@@ -321,8 +338,9 @@ nmap <silent> <c-n> <plug>(ale_next)
 highlight ExtraWhitespace ctermbg=black guibg=NONE guifg=#bcc7c2 ctermfg=NONE
 set list listchars=tab:\ \ ,trail:·
 highlight SpecialKey guibg=#bcc7c2 guifg=white
+hi! EndOfBuffer ctermbg=bg ctermfg=bg guibg=bg guifg=bg
 match ExtraWhitespace /\s\+$/
-highlight LineNr ctermfg=grey ctermbg=none guibg=#eee8d5 guifg=#bcc7c2
+highlight LineNr ctermfg=grey ctermbg=none guibg=NONE guifg=#333333
 highlight CursorLineNr ctermfg=grey ctermbg=none guibg=NONE guifg=NONE
 " ================ easyclip =====================================
 let g:EasyClipAutoFormat = 0
@@ -336,8 +354,8 @@ let g:EasyClipUsePasteToggleDefaults = 0
 let g:EasyClipUseSubstituteDefaults = 1
 " airline
 let g:airline_powerline_fonts = 1
-let g:airline_solarized_bg='light'
-let g:airline_theme='solarized'
+let g:airline_solarized_bg='dark'
+let g:airline_theme='one'
 " let g:airline_left_sep=''
 " let g:airline_right_sep=''
 
@@ -393,6 +411,17 @@ command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--no-color', fzf#vim#with_
 " Enable snipMate compatibility feature.
 let g:neosnippet#enable_snipmate_compatibility = 1
 let g:neosnippet#snippets_directory="~/.config/nvim/MyNeoSnippets"
+
+" imap <C-k>     <Plug>(neosnippet_expand_or_jump)
+" smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+" xmap <C-k>     <Plug>(neosnippet_expand_target)
+" map <expr><TAB>
+" \ pumvisible() ? "\<C-n>" :
+" \ neosnippet#expandable_or_jumpable() ?
+" \    "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+" smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
+" \ "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+
 " SuperTab like snippets behavior.
 imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)"
@@ -400,6 +429,7 @@ imap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 \ "\<Plug>(neosnippet_expand_or_jump)"
 \: "\<TAB>"
+
 let g:neosnippet#enable_auto_clear_markers=0
 nmap <leader>nse :NeoSnippetEdit -horizontal -split<cr>
 nmap <leader>nsl ::NeoSnippetSource ~/.config/nvim/MyNeoSnippets/*<cr>
@@ -429,3 +459,4 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 
 let g:tern#command=["/Users/james/.config/nvim/repos/github.com/ternjs/tern_for_vim/node_modules/tern/bin/tern"]
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'

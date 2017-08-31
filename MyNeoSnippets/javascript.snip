@@ -23,6 +23,11 @@ snippet cwm
     ${0}
   }
 
+snippet cwum
+  componentWillUnmount() {
+    ${0}
+  }
+
 # componentDidMount
 snippet cdm
   componentDidMount() {
@@ -107,6 +112,7 @@ snippet axiosClient
   let axios = require('axios');
 
   let axiosClient = axios.create({
+    withCredentials: true,
     baseURL: process.env.REACT_APP_API_BASE_URL
   });
 
@@ -140,3 +146,29 @@ snippet defaultProps
 
 snippet importcookies
   import { CookiesProvider, withCookies, Cookies } from 'react-cookie';
+
+snippet RouterLayout
+  import React from 'react';
+  import { Route } from 'react-router-dom';
+
+  const ${1}Layout = ({component: Component, ...rest}) => {
+    return (
+      <Route {...rest} render={matchProps => (
+        <div className="$1Layout">
+          <div className="Header">Header</div>
+          <Component {...matchProps} />
+          <div className="Footer">Footer</div>
+        </div>
+      )} />
+    )
+  };
+
+  export default $1Layout;
+
+snippet al
+  alert(1);
+
+snippet fn
+  (${1:event}) => {
+    ${2}
+  }
