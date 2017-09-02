@@ -45,16 +45,17 @@ call dein#add('Shougo/neocomplete')
 call dein#add('Shougo/neosnippet')
 call dein#add('Shougo/neosnippet-snippets')
 
-call dein#add('ternjs/tern_for_vim')
-
 " deoplete stuff
 call dein#add('Shougo/deoplete.nvim')
 call dein#add('Shougo/deol.nvim')
 
 call dein#add('tpope/vim-endwise')
+call dein#add('szw/vim-tags')
 
 call dein#add('junegunn/fzf', { 'build': './install' })
 call dein#add('junegunn/fzf.vim', { 'depends': 'junegunn/fzf' })
+call dein#add('scrooloose/nerdtree')
+call dein#add('henrik/vim-reveal-in-finder')
 if dein#check_install()
   call dein#install()
   let pluginsExist=1
@@ -176,6 +177,8 @@ nmap <leader>pi :PluginInstall<cr>
 
 " Show all git commits
 nmap <leader>gc :GV<cr>
+nmap <leader>rf :Reveal<cr>
+nmap <leader>ol :only<cr>
 
 " Show all git commits related to the current file
 nmap <leader>gcf :GV!<cr>
@@ -202,7 +205,7 @@ nmap <leader>vp :vsp<cr>
 nmap <leader>ccl :ccl<cr>
 nmap <leader>qq :wq<cr>
 nmap <leader>sa <esc>ggVG
-nmap <leader>ca <esc>ggVGy
+nmap <leader>ca <esc>:%y+<cr>
 nmap <leader>- :wincmd _<cr>:wincmd \|<cr>
 nmap <leader>= :wincmd =<cr>
 nmap <leader>h :nohlsearch<cr>
@@ -220,6 +223,7 @@ nnoremap <leader>ft :VtrFocusRunner<cr>
 
 " save with w
 nmap <leader>w <esc>:w<cr>
+map <C-t> :NERDTreeToggle<CR>
 
 nnoremap <leader>i <esc>:!ctags_index<cr>
 
@@ -243,6 +247,7 @@ imap <c-v> <plug>EasyClipInsertModePaste
 
 nmap <c-q> :echoe hello<cr>
 nmap <c-p> :Files<cr>
+
 
 "" RSpec.vim mappings
 let g:rspec_command = "VtrSendCommandToRunner! rspec {spec}"
@@ -427,5 +432,3 @@ let g:fzf_colors =
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
-
-let g:tern#command=["/Users/james/.config/nvim/repos/github.com/ternjs/tern_for_vim/node_modules/tern/bin/tern"]
