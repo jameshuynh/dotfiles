@@ -1,7 +1,7 @@
 " cal dein#add('rking/ag.vim') " Full Text Search
 " Author: James
 " repo: http://github.com/jameshuynh/dotfile
-
+language en_US
 " Setup dein  ---------------------------------------------------------------{{{
 if (!isdirectory(expand("$HOME/.config/nvim/repos/github.com/Shougo/dein.vim")))
   call system(expand("mkdir -p $HOME/.config/nvim/repos/github.com"))
@@ -56,6 +56,10 @@ call dein#add('junegunn/fzf', { 'build': './install' })
 call dein#add('junegunn/fzf.vim', { 'depends': 'junegunn/fzf' })
 call dein#add('scrooloose/nerdtree')
 call dein#add('henrik/vim-reveal-in-finder')
+
+call dein#add('ternjs/tern_for_vim')
+call dein#add('carlitux/deoplete-ternjs', { 'build': 'npm install -g tern' })
+
 if dein#check_install()
   call dein#install()
   let pluginsExist=1
@@ -137,6 +141,7 @@ nmap <silent> <c-j> <c-w>j<CR>
 nmap <silent> <c-h> <c-w>h<CR>
 nmap <silent> <c-l> <c-w>l<CR>
 
+nmap td :TernDef<CR>
 " copy current files path to clipboard
 nmap cp :let @+= expand("%") <cr>
 
@@ -326,6 +331,7 @@ nmap <silent> <c-n> <plug>(ale_next)
 highlight ExtraWhitespace ctermbg=black guibg=NONE guifg=#bcc7c2 ctermfg=NONE
 set list listchars=tab:\ \ ,trail:·
 highlight SpecialKey guibg=#bcc7c2 guifg=white
+hi! EndOfBuffer guibg=bg guifg=bg
 match ExtraWhitespace /\s\+$/
 highlight LineNr ctermfg=grey ctermbg=none guibg=#eee8d5 guifg=#bcc7c2
 highlight CursorLineNr ctermfg=grey ctermbg=none guibg=NONE guifg=NONE
@@ -432,3 +438,8 @@ let g:fzf_colors =
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
+
+let g:tern#command = ["tern"]
+let g:tern#arguments = ["--persistent"]
+
+let $FZF_DEFAULT_COMMAND = 'ag -g ""'
