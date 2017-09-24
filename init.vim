@@ -173,6 +173,11 @@ let g:elm_setup_keybindings = 1
 "
 let mapleader = "\<Space>"
 
+nnoremap <leader>p <Nop> " disable default mapping of prettier
+nmap <Leader>fs <Plug>(PrettierAsync)
+autocmd FileType ruby nmap <leader>fs :ALEFix<CR>
+autocmd FileType js,json,css,css,less,graphql nmap <leader>fs :PrettierAsync<CR>
+
 " open vimrc in a horizontal window
 nmap <leader>vr :sp $MYVIMRC<cr>
 " source vimrc
@@ -302,9 +307,13 @@ let g:deoplete#enable_at_startup = 1
 " let g:syntastic_ruby_checkers=['rubocop', 'mri']
 " let g:syntastic_javascript_checkers=['eslint']
 " let g:ale_lint_on_save = 1
+let g:ale_fixers = {
+\   'javascript': ['prettier'],
+\   'ruby': ['rubocop'],
+\}
 let g:ale_linters = {
       \   'typescript': ['tslint'],
-      \   'javascript': ['eslint'],
+      \   'javascript': ['flow', 'eslint'],
       \   'ruby': ['rubocop', 'mri'],
       \   'vim' : ['vint'],
       \   'html' : ['tidy']
@@ -357,7 +366,7 @@ imap <c-v> <plug>EasyClipInsertModePaste
 cmap <c-v> <plug>EasyClipCommandModePaste
 nmap P <plug>EasyClipSwapPasteForward
 nmap N <plug>EasyClipSwapPasteBackwards
-" nmap <leader>p :IPaste <cr>
+nmap <leader>p :IPaste <cr>
 " ============= SplitJoin ====================
 let g:splitjoin_ruby_hanging_args = 0
 let g:splitjoin_ruby_trailing_comma = 0

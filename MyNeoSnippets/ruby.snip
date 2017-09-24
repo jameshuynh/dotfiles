@@ -1207,3 +1207,14 @@ snippet super_call
 
 snippet rdebug
   puts '-----' * 30
+snippet has_attached_file
+  has_attached_file \
+    :${1:photo},
+    styles: { thumb: ['32x32#', 'jpg'] },
+    convert_options: {
+      all: '-interlace Plane'
+    },
+    default_url: '/images/default_:style_$1.png'
+
+  validates_attachment_presence :$1
+  validates_attachment_file_name :$1, matches: [/png\Z/, /jpe?g\Z/, /gif\Z/]
