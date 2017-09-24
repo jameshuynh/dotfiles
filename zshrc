@@ -136,6 +136,7 @@ alias dc-web='docker-compose run web'
 alias dc-migrate='docker-compose run web rails db:migrate'
 alias dc-rspec='docker-compose run web rspec'
 alias dc='docker-compose'
+alias whoisonport='lsof -i tcp:3000'
 
 alias samsung_admin='cd ~/apps/samsung_toolbox/samsung-tool-box'
 alias arbitry_load="plutil -insert NSAppTransportSecurity -json '{\"NSAllowsArbitraryLoads\":true}' rubify/Info.plist"
