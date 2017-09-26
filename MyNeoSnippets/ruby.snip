@@ -1286,3 +1286,8 @@ snippet user_auth
 snippet abc
   def abc
   end
+
+snippet ransack_enum
+  ransacker :${1:singular_field}, formatter: proc { |v| ${1:pluralize_field}[v] } do |parent|
+    parent.table[:$1]
+  end
