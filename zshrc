@@ -9,8 +9,8 @@ export ZSH=~/.oh-my-zsh
 # ZSH_THEME="robbyrussell"
 # ZSH_THEME="dracula"
 # ZSH_THEME="the-one"
-# ZSH_THEME="agnoster"
-autoload -U promptinit; promptinit
+ZSH_THEME="cloud"
+# autoload -U promptinit; promptinit
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=246'
@@ -87,8 +87,8 @@ fi
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias zshconfig="mate ~/.zshrc"
+alias ohmyzsh="mate ~/.oh-my-zsh"
 alias pull='git pull origin'
 alias push='git push origin'
 alias gis='git status'
@@ -221,5 +221,8 @@ eval "$(rbenv init -)"
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*" --glob "!node_modules*" --glob "!*xcodeproj/*" --glob "!*xcassets/*" --glob "!*.png" --glob "!*.jpg" --glob "!.*"'
 
-prompt pure
+autoload -U promptinit; promptinit
+
+# prompt pure
 export ANDROID_HOME=/Users/james/Library/Android/sdk
+DISABLE_AUTO_TITLE=true
