@@ -70,6 +70,7 @@ filetype plugin indent on
 
 "}}}
 
+let g:prettier#config#semi = 'false'
 let g:prettier#exec_cmd_async = 1
 let g:prettier#quickfix_enabled = 0
 let g:prettier#autoformat = 0
@@ -112,7 +113,7 @@ set splitbelow
 set splitright
 set nofoldenable
 set pastetoggle=<F2>    "turn on/off paste mode
-set grepprg=ag
+" set grepprg=ag
 " To turn off error beeping and flashing in Vim
 set vb t_vb=
 " Clear background terminal color option
@@ -295,10 +296,8 @@ endfunction
 nnoremap <leader>q :call <SID>StripTrailingWhitespaces()<CR>
 " ===================================================================
 
-let g:deoplete#enable_at_startup = 1
-
 " ================ ag config =======================================
-" let g:ag_prg = 'ag --vimgrep'
+let g:agprg='ag -S --nocolor --nogroup --column --ignore node_modules'
 " let g:ag_mapping_message=0
 " =============== syntastic ========================================
 " let g:syntastic_auto_jump=0
@@ -320,11 +319,11 @@ let g:ale_linters = {
       \}
 highlight ALEErrorSign ctermbg=yellow guibg=#3b7593 guifg=white ctermfg=white
 highlight ALEWarningSign ctermbg=yellow guibg=#3b7593 guifg=white ctermfg=white
-" let g:ale_sign_error = '⨉'
-let g:ale_sign_error = emoji#for('small_red_triangle', '', 0)
-" let g:ale_sign_warning = '⬥ '
+let g:ale_sign_error = '⨉'
+" let g:ale_sign_error = emoji#for('small_red_triangle', '', 0)
+let g:ale_sign_warning = '⬥ '
 " let g:ale_sign_warning = emoji#for('warning')
-let g:ale_sign_warning = emoji#for('small_orange_diamond')
+" let g:ale_sign_warning = emoji#for('small_orange_diamond')
 " let g:ale_statusline_format = [' E•%d', 'W•%d ', ' ⬥ ok ']
 let g:ale_statusline_format = ['⨉ %d', '⬥ %d']
 let g:ale_echo_msg_error_str = '✹ Error'
@@ -401,13 +400,6 @@ endfunction
 command! -range=% ChangeHashSyntax call <SID>ChangeHashSyntax(<line1>,<line2>)
 let g:deoplete#enable_at_startup = 1
 
-" fzf actions
-let g:fzf_action = {
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
-
-command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, '--no-color', fzf#vim#with_preview(), <bang>0)
-
 " Snipppets -----------------------------------------------------------------{{{
 
 " Enable snipMate compatibility feature.
@@ -432,8 +424,18 @@ let g:ruby_indent_access_modifier_style = 'normal'
 silent! unmap \
 nmap \ :Ag<Space>
 
+let g:tern#command = ["tern"]
+let g:tern#arguments = ["--persistent"]
 
-" Customize fzf colors to match your color scheme
+let g:rg_command = '
+  \ rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --color "always"
+  \ -g "*.{js,json,php,md,styl,jade,html,config,py,cpp,c,go,hs,rb,conf,swift,java}"
+  \ -g "!{.git,node_modules,vendor,.xcodeproj}/*" '
+let g:fzf_files_options =
+   \ '--preview "(coderay {} || cat {}) 2> /dev/null | head -'.&lines.'"'
+
+command! -bang -nargs=* F call fzf#vim#grep(g:rg_command .shellescape(<q-args>), 1, <bang>0)
+
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
   \ 'bg':      ['bg', 'Normal'],
@@ -442,13 +444,11 @@ let g:fzf_colors =
   \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
   \ 'hl+':     ['fg', 'Statement'],
   \ 'info':    ['fg', 'PreProc'],
+  \ 'border':  ['fg', 'Ignore'],
   \ 'prompt':  ['fg', 'Conditional'],
   \ 'pointer': ['fg', 'Exception'],
   \ 'marker':  ['fg', 'Keyword'],
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
-let g:tern#command = ["tern"]
-let g:tern#arguments = ["--persistent"]
-
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'down': '40%', 'options': '--no-color'})
