@@ -226,3 +226,5 @@ autoload -U promptinit; promptinit
 # prompt pure
 export ANDROID_HOME=/Users/james/Library/Android/sdk
 DISABLE_AUTO_TITLE=true
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"

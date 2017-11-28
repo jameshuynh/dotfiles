@@ -11,6 +11,7 @@ endif
 set runtimepath+=~/.config/nvim/repos/github.com/Shougo/dein.vim/
 call dein#begin(expand('~/.config/nvim'))
 
+call dein#add('pangloss/vim-javascript')
 call dein#add('mxw/vim-jsx')
 call dein#add('godlygeek/tabular') " Tabular
 call dein#add('plasticboy/vim-markdown') "Mark down
@@ -57,8 +58,8 @@ call dein#add('junegunn/fzf.vim', { 'depends': 'junegunn/fzf' })
 call dein#add('scrooloose/nerdtree')
 call dein#add('henrik/vim-reveal-in-finder')
 
-call dein#add('ternjs/tern_for_vim')
-call dein#add('carlitux/deoplete-ternjs', { 'build': 'npm install -g tern' })
+" call dein#add('ternjs/tern_for_vim')
+" call dein#add('carlitux/deoplete-ternjs', { 'build': 'npm install -g tern' })
 
 if dein#check_install()
   call dein#install()
@@ -69,13 +70,14 @@ call dein#end()
 filetype plugin indent on
 
 "}}}
-
+"
 let g:prettier#config#semi = 'false'
 let g:prettier#exec_cmd_async = 1
 let g:prettier#quickfix_enabled = 0
 let g:prettier#autoformat = 0
 let g:prettier#config#trailing_comma = 'none'
 let g:prettier#config#bracket_spacing = 'true'
+let g:prettier#config#print_width = 80
 " autocmd BufWritePre *.js,*.json,*.css,*.scss,*.less,*.graphql PrettierAsync
 
 " ================= All Settings ===========================
@@ -84,6 +86,7 @@ set nocompatible        " be iMproved, required
 set backspace=2         " backspace in insert mode works like normal editor
 syntax on               " syntax highlighting
 set expandtab           " to insert space characters when tab
+set ignorecase
 filetype indent on      " activates indenting for files
 set autoindent          " auto indenting
 set relativenumber      " line numbers
@@ -424,8 +427,8 @@ let g:ruby_indent_access_modifier_style = 'normal'
 silent! unmap \
 nmap \ :Ag<Space>
 
-let g:tern#command = ["tern"]
-let g:tern#arguments = ["--persistent"]
+" let g:tern#command = ["tern"]
+" let g:tern#arguments = ["--persistent"]
 
 let g:rg_command = '
   \ rg --column --line-number --no-heading --fixed-strings --ignore-case --hidden --follow --color "always"
@@ -452,3 +455,5 @@ let g:fzf_colors =
   \ 'header':  ['fg', 'Comment'] }
 
 command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'down': '40%', 'options': '--no-color'})
+
+let g:jsx_ext_required = 0
