@@ -13,6 +13,7 @@ call dein#begin(expand('~/.config/nvim'))
 
 call dein#add('pangloss/vim-javascript')
 call dein#add('mxw/vim-jsx')
+call dein#add('chemzqm/vim-jsx-improve')
 call dein#add('godlygeek/tabular') " Tabular
 call dein#add('plasticboy/vim-markdown') "Mark down
 call dein#add('AndrewRadev/splitjoin.vim') " Split & Join
@@ -35,7 +36,7 @@ call dein#add('leafgarland/typescript-vim')
 call dein#add('posva/vim-vue')
 call dein#add('prettier/vim-prettier')
 call dein#add('ap/vim-css-color')
-call dein#add('itmammoth/doorboy.vim')
+" call dein#add('itmammoth/doorboy.vim')
 call dein#add('tpope/vim-fugitive')
 call dein#add('junegunn/gv.vim')
 call dein#add('mattn/emmet-vim')
@@ -57,6 +58,7 @@ call dein#add('junegunn/fzf', { 'build': './install' })
 call dein#add('junegunn/fzf.vim', { 'depends': 'junegunn/fzf' })
 call dein#add('scrooloose/nerdtree')
 call dein#add('henrik/vim-reveal-in-finder')
+call dein#add('kchmck/vim-coffee-script')
 
 " call dein#add('ternjs/tern_for_vim')
 " call dein#add('carlitux/deoplete-ternjs', { 'build': 'npm install -g tern' })
@@ -92,8 +94,11 @@ set autoindent          " auto indenting
 set relativenumber      " line numbers
 set number
 set numberwidth=4       " number column space
-set background=light
-colorscheme solarized  " colorscheme solarized
+" set background=light
+" colorscheme solarized  " colorscheme solarized
+set background=dark
+colorscheme two-firewatch  " colorscheme solarized
+" colorscheme dracula  " colorscheme solarized
 
 set synmaxcol=80        " max color at 80
 set nobackup            " get rid of anoying ~file
@@ -339,12 +344,12 @@ highlight SignColumn guibg=NONE
 nmap <silent> <c-m> <plug>(ale_previous)
 nmap <silent> <c-n> <plug>(ale_next)
 " ================= show extra white space =========================
-highlight ExtraWhitespace ctermbg=black guibg=NONE guifg=#bcc7c2 ctermfg=NONE
+highlight ExtraWhitespace ctermbg=black guibg=NONE guifg=#616d84 ctermfg=NONE
 set list listchars=tab:\ \ ,trail:·
 highlight SpecialKey guibg=#bcc7c2 guifg=white
 hi! EndOfBuffer guibg=bg guifg=bg
 match ExtraWhitespace /\s\+$/
-highlight LineNr ctermfg=grey ctermbg=none guibg=#eee8d5 guifg=#bcc7c2
+highlight LineNr ctermfg=grey ctermbg=none guibg=#2d323b guifg=#bcc7c2
 highlight CursorLineNr ctermfg=grey ctermbg=none guibg=NONE guifg=NONE
 " ================ easyclip =====================================
 let g:EasyClipAutoFormat = 0
@@ -358,8 +363,8 @@ let g:EasyClipUsePasteToggleDefaults = 0
 let g:EasyClipUseSubstituteDefaults = 1
 " airline
 let g:airline_powerline_fonts = 1
-let g:airline_solarized_bg='light'
-let g:airline_theme='solarized'
+let g:airline_solarized_bg='dark'
+let g:airline_theme='base16_ocean'
 " let g:airline_left_sep=''
 " let g:airline_right_sep=''
 

@@ -6,10 +6,10 @@ export ZSH=~/.oh-my-zsh
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
 
-# ZSH_THEME="robbyrussell"
+ZSH_THEME="robbyrussell"
 # ZSH_THEME="dracula"
 # ZSH_THEME="the-one"
-ZSH_THEME="cloud"
+# ZSH_THEME=""
 # autoload -U promptinit; promptinit
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
@@ -214,14 +214,12 @@ else
     fi
 fi
 
-export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="$HOME/.rbenv/bin:$HOME/Library/Android/sdk/platform-tools:$PATH"
 eval "$(rbenv init -)"
 
 # Setting ag as the default source for fzf
 
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*" --glob "!node_modules*" --glob "!*xcodeproj/*" --glob "!*xcassets/*" --glob "!*.png" --glob "!*.jpg" --glob "!.*"'
-
-autoload -U promptinit; promptinit
 
 # prompt pure
 export ANDROID_HOME=/Users/james/Library/Android/sdk
