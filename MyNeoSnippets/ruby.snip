@@ -1297,3 +1297,8 @@ snippet applicationcontroller
 
 snippet user_auth
   has_secure_password validations: ${1}
+
+snippet ransack_enum
+  ransacker :${1:singular_field}, formatter: proc { |v| ${1:pluralize_field}[v] } do |parent|
+    parent.table[:$1]
+  end

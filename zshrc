@@ -88,8 +88,8 @@ fi
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias zshconfig="mate ~/.zshrc"
+alias ohmyzsh="mate ~/.oh-my-zsh"
 alias pull='git pull origin'
 alias push='git push origin'
 alias gis='git status'
@@ -220,6 +220,7 @@ export PATH="$HOME/.rbenv/bin:/Users/james/Library/Android/sdk/platform-tools:$P
 eval "$(rbenv init -)"
 
 # Setting ag as the default source for fzf
+<<<<<<< HEAD
 export FZF_DEFAULT_COMMAND='ag -g ""'
 
 _gen_fzf_default_opts() {
@@ -248,9 +249,18 @@ _gen_fzf_default_opts() {
    --color info:$yellow,prompt:$yellow,pointer:$base03,marker:$base03,spinner:$yellow
   "
 }
+=======
+>>>>>>> f2e6fe58ec006e3a7cec0a3af20a9428af8da373
 
-_gen_fzf_default_opts
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*" --glob "!node_modules*" --glob "!*xcodeproj/*" --glob "!*xcassets/*" --glob "!*.png" --glob "!*.jpg" --glob "!.*"'
 
+autoload -U promptinit; promptinit
+
+# prompt pure
+export ANDROID_HOME=/Users/james/Library/Android/sdk
+DISABLE_AUTO_TITLE=true
+
+<<<<<<< HEAD
 # prompt pure
 export ANDROID_HOME=/Users/james/Library/Android/sdk
 
@@ -265,3 +275,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
+=======
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+>>>>>>> f2e6fe58ec006e3a7cec0a3af20a9428af8da373
