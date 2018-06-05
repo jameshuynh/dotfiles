@@ -10,7 +10,8 @@ export ZSH=~/.oh-my-zsh
 # ZSH_THEME="dracula"
 # ZSH_THEME="the-one"
 # ZSH_THEME="agnoster"
-autoload -U promptinit; promptinit
+ZSH_THEME="amuse"
+# autoload -U promptinit; promptinit
 
 source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=246'
@@ -140,6 +141,7 @@ alias whoisonport='lsof -i tcp:3000'
 
 alias samsung_admin='cd ~/apps/samsung_toolbox/samsung-tool-box'
 alias arbitry_load="plutil -insert NSAppTransportSecurity -json '{\"NSAllowsArbitraryLoads\":true}' rubify/Info.plist"
+alias fix_npm="curl -0 -L https://npmjs.com/install.sh | sh"
 
 fancy-ctrl-z () {
   if [[ $#BUFFER -eq 0 ]]; then
@@ -180,7 +182,7 @@ source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 export TM_RUBY=$HOME/.rbenv/shims/ruby
 # eval $(/usr/libexec/path_helper -s)
 
-eval $(thefuck --alias)
+# eval $(thefuck --alias)
 
 export BUNDLE_ID=com.quadmark.fxtestapp
 export DEVICE_TARGET=48e0f20ddb735a99b50f9d50e495c7fe20730b38
@@ -214,11 +216,11 @@ else
     fi
 fi
 
-export PATH="$HOME/.rbenv/bin:$PATH"
+export PATH="$HOME/.rbenv/bin:/Users/james/Library/Android/sdk/platform-tools:$PATH"
 eval "$(rbenv init -)"
 
 # Setting ag as the default source for fzf
-# export FZF_DEFAULT_COMMAND='ag -g ""'
+export FZF_DEFAULT_COMMAND='ag -g ""'
 
 _gen_fzf_default_opts() {
   local base03="234"
@@ -249,4 +251,17 @@ _gen_fzf_default_opts() {
 
 _gen_fzf_default_opts
 
-prompt pure
+# prompt pure
+export ANDROID_HOME=/Users/james/Library/Android/sdk
+
+DISABLE_AUTO_TITLE=true
+
+export PATH=$PATH:$(go env GOPATH)/bin
+export PATH=$PATH:/Users/james/fabric-samples/bin
+export GOPATH=$(go env GOPATH)
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).

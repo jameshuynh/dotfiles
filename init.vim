@@ -1,4 +1,4 @@
-" cal dein#add('rking/ag.vim') " Full Text Search
+"bca95343acee5a4dbfb5f41b7f34dd5aa2392176 cal dein#add('rking/ag.vim') " Full Text Search
 " Author: James
 " repo: http://github.com/jameshuynh/dotfile
 language en_US
@@ -40,6 +40,7 @@ call dein#add('junegunn/gv.vim')
 call dein#add('mattn/emmet-vim')
 call dein#add('svermeulen/vim-easyclip')
 call dein#add('vim-ruby/vim-ruby')
+call dein#add('brooth/far.vim')
 
 call dein#add('Shougo/neocomplete')
 call dein#add('Shougo/neosnippet')
@@ -56,9 +57,11 @@ call dein#add('junegunn/fzf', { 'build': './install' })
 call dein#add('junegunn/fzf.vim', { 'depends': 'junegunn/fzf' })
 call dein#add('scrooloose/nerdtree')
 call dein#add('henrik/vim-reveal-in-finder')
+call dein#add('tomlion/vim-solidity')
+call dein#add('kchmck/vim-coffee-script')
 
-call dein#add('ternjs/tern_for_vim')
-call dein#add('carlitux/deoplete-ternjs', { 'build': 'npm install -g tern' })
+" call dein#add('ternjs/tern_for_vim')
+" call dein#add('carlitux/deoplete-ternjs', { 'build': 'npm install -g tern' })
 
 if dein#check_install()
   call dein#install()
@@ -90,6 +93,7 @@ set number
 set numberwidth=4       " number column space
 set background=light
 colorscheme solarized  " colorscheme solarized
+set ignorecase
 
 set synmaxcol=80        " max color at 80
 set nobackup            " get rid of anoying ~file
@@ -98,8 +102,7 @@ set noswapfile          " get rid of annoying swapfile
 set tabstop=2           " tab space to 2
 set softtabstop=2       " soft tab space to 2
 set shiftwidth=2        " shift the content every 2 columns
-set cc=80               " show column at 80
-set scrolloff=10        " keep bottom / top offset at 10
+set splitright
 set incsearch           " do incremental searching
 set hlsearch
 set ruler               " show the cursor position all the time
@@ -184,6 +187,9 @@ nmap <leader>vr :sp $MYVIMRC<cr>
 nmap <leader>so :source $MYVIMRC<cr>
 
 nmap <leader>pi :PluginInstall<cr>
+
+nmap <leader>dbg :set background=dark<cr>
+nmap <leader>dbl :set background=light<cr>
 
 " Show all git commits
 nmap <leader>gc :GV<cr>
@@ -318,13 +324,16 @@ let g:ale_linters = {
       \   'vim' : ['vint'],
       \   'html' : ['tidy']
       \}
+let g:ale_pattern_options = {
+\   '.*\.erb$': {'ale_enabled': 0}
+\}
 highlight ALEErrorSign ctermbg=yellow guibg=#3b7593 guifg=white ctermfg=white
 highlight ALEWarningSign ctermbg=yellow guibg=#3b7593 guifg=white ctermfg=white
-" let g:ale_sign_error = '⨉'
-let g:ale_sign_error = emoji#for('small_red_triangle', '', 0)
-" let g:ale_sign_warning = '⬥ '
+let g:ale_sign_error = '⨉'
+" let g:ale_sign_error = emoji#for('small_red_triangle', '', 0)
+let g:ale_sign_warning = '⬥ '
 " let g:ale_sign_warning = emoji#for('warning')
-let g:ale_sign_warning = emoji#for('small_orange_diamond')
+" let g:ale_sign_warning = emoji#for('small_orange_diamond')
 " let g:ale_statusline_format = [' E•%d', 'W•%d ', ' ⬥ ok ']
 let g:ale_statusline_format = ['⨉ %d', '⬥ %d']
 let g:ale_echo_msg_error_str = '✹ Error'
@@ -448,7 +457,10 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
-let g:tern#command = ["tern"]
-let g:tern#arguments = ["--persistent"]
+" let g:tern#command = ["tern"]
+" let g:tern#arguments = ["--persistent"]
 
-let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+" let $FZF_DEFAULT_COMMAND = 'ag -g ""'
+set shell=/usr/local/bin/zsh
+
+let g:prettier#config#semi = 'false'
