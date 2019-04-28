@@ -15,6 +15,7 @@ call dein#add('pangloss/vim-javascript')
 call dein#add('mxw/vim-jsx')
 call dein#add('chemzqm/vim-jsx-improve')
 call dein#add('godlygeek/tabular') " Tabular
+call dein#add('brooth/far.vim') " replace all
 call dein#add('plasticboy/vim-markdown') "Mark down
 call dein#add('AndrewRadev/splitjoin.vim') " Split & Join
 call dein#add('tpope/vim-surround.git')
@@ -59,6 +60,8 @@ call dein#add('junegunn/fzf.vim', { 'depends': 'junegunn/fzf' })
 call dein#add('scrooloose/nerdtree')
 call dein#add('henrik/vim-reveal-in-finder')
 call dein#add('kchmck/vim-coffee-script')
+
+call dein#add('machakann/vim-highlightedyank')
 
 " call dein#add('ternjs/tern_for_vim')
 " call dein#add('carlitux/deoplete-ternjs', { 'build': 'npm install -g tern' })
@@ -459,6 +462,17 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
-command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'down': '40%', 'options': '--no-color'})
+" command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'down': '40%', 'options': '--no-color'})
 
 let g:jsx_ext_required = 0
+" set includeexpr=substitute(v:fname, '^\\~', 'src/', '')
+" set suffixesadd=.js,.vue,.scss
+augroup navigator
+  autocmd!
+  autocmd FileType netrw call s:reset_netrw_keys()
+augroup END
+
+function! s:reset_netrw_keys() abort
+  nmap <buffer> <silent> <c-j> <Plug>NetrwHideEdit
+  nmap <buffer> <silent> <c-k> <Plug>NetrwRefresh
+endfunction

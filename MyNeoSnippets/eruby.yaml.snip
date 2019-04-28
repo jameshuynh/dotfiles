@@ -1,0 +1,9 @@
+snippet dev_db
+  development:
+    adapter: mysql2
+    encoding: utf8
+    socket: /tmp/mysql.sock
+    pool: 5
+    database: ${0:db_name}
+    username: root
+    password:

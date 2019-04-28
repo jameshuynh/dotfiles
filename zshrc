@@ -7,6 +7,7 @@ export ZSH=~/.oh-my-zsh
 # time that oh-my-zsh is loaded.
 
 ZSH_THEME="robbyrussell"
+# ZSH_THEME="cloud"
 # ZSH_THEME="dracula"
 # ZSH_THEME="the-one"
 # ZSH_THEME=""
@@ -87,6 +88,8 @@ fi
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
+alias dc="docker-compose"
+alias dc-web="docker-compose run web"
 alias zshconfig="mate ~/.zshrc"
 alias ohmyzsh="mate ~/.oh-my-zsh"
 alias pull='git pull origin'
@@ -103,6 +106,7 @@ alias rubify-grid='cd ~/apps/lab/rubify-react-grid && ./dev-tmux'
 alias amazing-borneo='cd ~/apps/ab/ab-frontend && ./dev-tmux'
 alias work-ready='cd ~/apps/work-ready/work-ready-frontend && ./dev-tmux'
 
+alias npmri='curl -0 -L https://npmjs.com/install.sh | sh'
 alias ns='npm start'
 alias be='bundle exec'
 alias bec='bundle exec cucumber'
@@ -226,3 +230,13 @@ export ANDROID_HOME=/Users/james/Library/Android/sdk
 DISABLE_AUTO_TITLE=true
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
+# set -o vi
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/Users/james/.sdkman"
+[[ -s "/Users/james/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/james/.sdkman/bin/sdkman-init.sh"
+
+export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
+source /usr/local/opt/autoenv/activate.sh
