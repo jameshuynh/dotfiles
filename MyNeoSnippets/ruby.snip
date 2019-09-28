@@ -1302,3 +1302,9 @@ snippet ransack_enum
   ransacker :${1:singular_field}, formatter: proc { |v| ${1:pluralize_field}[v] } do |parent|
     parent.table[:$1]
   end
+
+snippet rd_i18n_text
+  def ${1:text}_text
+    I18n.t('rubify_dashboard.web_actions.$1')
+  end
+

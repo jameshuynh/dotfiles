@@ -60,7 +60,7 @@ plugins=(git)
 
 # User configuration
 
-export PATH="~/.rbenv/shims:~/.rbenv/bin:~/work/adt-bundle-mac/sdk/tools:/opt/chefdk/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/TeX/texbin"
+export PATH="~/.rbenv/shims:~/.rbenv/bin:~/work/adt-bundle-mac/sdk/tools:/opt/chefdk/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/TeX/texbin:$HOME/.cargo/bin:$HOME/go/bin:$PATH"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -102,10 +102,12 @@ alias rubify-form='cd ~/apps/lab/rubify-react-form && ./dev-tmux'
 alias rubify-grid='cd ~/apps/lab/rubify-react-grid && ./dev-tmux'
 alias amazing-borneo='cd ~/apps/ab/ab-frontend && ./dev-tmux'
 alias work-ready='cd ~/apps/work-ready/work-ready-frontend && ./dev-tmux'
+alias rp='cd ~/apps/lab/rubify-portal-2 && ./dev-tmux'
 
 alias ns='npm start'
 alias be='bundle exec'
 alias bec='bundle exec cucumber'
+alias bi='bundle install'
 alias bt='bundle exec thin start'
 alias rc='bundle exec rails console'
 alias gp='git push origin master'
@@ -115,6 +117,7 @@ alias co='git checkout'
 alias v='vim'
 alias ll='ls -al'
 alias 'r'='rails'
+alias 'b'='buffalo'
 alias 'j'='jekyll'
 alias 'js'='jekyll serve --watch'
 alias autossh='autossh -M $(($RANDOM%6400 + 1024))'
@@ -137,9 +140,12 @@ alias dc-migrate='docker-compose run web rails db:migrate'
 alias dc-rspec='docker-compose run web rspec'
 alias dc='docker-compose'
 alias whoisonport='lsof -i tcp:3000'
+alias g='git'
+alias python='python3'
 
 alias samsung_admin='cd ~/apps/samsung_toolbox/samsung-tool-box'
 alias arbitry_load="plutil -insert NSAppTransportSecurity -json '{\"NSAllowsArbitraryLoads\":true}' rubify/Info.plist"
+alias reinstall_npm="curl -0 -L https://npmjs.com/install.sh | sudo sh"
 
 fancy-ctrl-z () {
   if [[ $#BUFFER -eq 0 ]]; then
@@ -214,7 +220,7 @@ else
     fi
 fi
 
-export PATH="$HOME/.rbenv/bin:$HOME/Library/Android/sdk/platform-tools:$PATH"
+export PATH="$HOME/.rbenv/bin:$HOME/Library/Android/sdk/platform-tools:/home/james/go/bin/:$PATH"
 eval "$(rbenv init -)"
 
 # Setting ag as the default source for fzf
@@ -226,3 +232,12 @@ export ANDROID_HOME=/Users/james/Library/Android/sdk
 DISABLE_AUTO_TITLE=true
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+alias bv='bv -w 800'
+# set -o vi
+
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
+
+
+. /Users/james/torch/install/bin/torch-activate
+
+export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
