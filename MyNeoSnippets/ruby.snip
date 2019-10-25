@@ -1303,6 +1303,11 @@ snippet ransack_enum
     parent.table[:$1]
   end
 
+snippet rd_i18n_text
+  def ${1:text}_text
+    I18n.t('rubify_dashboard.web_actions.$1')
+  end
+
 snippet graphql_resolve
   resolve lambda { |obj, _args, _ctx|
     ${0}

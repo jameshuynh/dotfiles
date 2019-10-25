@@ -1,4 +1,4 @@
-" cal dein#add('rking/ag.vim') " Full Text Search
+"loadSelectFilterFor cal dein#add('rking/ag.vim') " Full Text Search
 " Author: James
 " repo: http://github.com/jameshuynh/dotfile
 language en_US
@@ -47,6 +47,12 @@ call dein#add('vim-ruby/vim-ruby')
 call dein#add('Shougo/neocomplete')
 call dein#add('Shougo/neosnippet')
 call dein#add('Shougo/neosnippet-snippets')
+call dein#add('xolox/vim-misc')
+call dein#add('xolox/vim-notes')
+
+call dein#add('rhysd/vim-crystal')
+
+call dein#add('machakann/vim-highlightedyank')
 
 " deoplete stuff
 call dein#add('Shougo/deoplete.nvim')
@@ -61,12 +67,27 @@ call dein#add('scrooloose/nerdtree')
 call dein#add('henrik/vim-reveal-in-finder')
 call dein#add('kchmck/vim-coffee-script')
 call dein#add('zivyangll/git-blame.vim')
+call dein#add('digitaltoad/vim-pug.git')
+call dein#add('fatih/vim-go')
+" call dein#add('neoclide/coc.nvim', {'branch': 'release'})
+call dein#add('nsf/gocode')
+call dein#add('deoplete-plugins/deoplete-go', {'build': 'make'})
 
 call dein#add('machakann/vim-highlightedyank')
 call dein#add('fatih/vim-go')
 
 " call dein#add('ternjs/tern_for_vim')
 " call dein#add('carlitux/deoplete-ternjs', { 'build': 'npm install -g tern' })
+
+" call deoplete#custom#option('omni_patterns', {
+" \ 'go': '[^. *\t]\.\w*',
+" \})
+" au filetype go inoremap <buffer> . .<C-x><C-o>
+" setlocal omnifunc=gocode#Complete
+" set completeopt=longest,menuone,noinsert
+let g:go_fmt_fail_silently = 1
+let g:go_fmt_autosave = 1
+let g:go_fmt_command = "goimports"
 
 if dein#check_install()
   call dein#install()
@@ -105,6 +126,7 @@ set background=dark
 colorscheme two-firewatch  " colorscheme solarized
 " colorscheme dracula  " colorscheme solarized
 
+set inccommand=nosplit " real time substituion
 set synmaxcol=80        " max color at 80
 set nobackup            " get rid of anoying ~file
 set nowritebackup       " get rid of annoying ~file
@@ -190,6 +212,7 @@ let mapleader = "\<Space>"
 nnoremap <leader>p <Nop> " disable default mapping of prettier
 nmap <Leader>fs <Plug>(PrettierAsync)
 autocmd FileType ruby nmap <leader>fs :ALEFix<CR>
+autocmd FileType go nmap <leader>fs :GoFmt<CR>
 autocmd FileType js,json,css,css,less,graphql nmap <leader>fs :PrettierAsync<CR>
 
 " git blame
@@ -329,10 +352,14 @@ let g:ale_fixers = {
 let g:ale_linters = {
       \   'typescript': ['tslint'],
       \   'javascript': ['flow', 'eslint'],
+      \   'erb': [],
       \   'ruby': ['rubocop', 'mri'],
       \   'vim' : ['vint'],
       \   'html' : ['tidy']
       \}
+let g:ale_pattern_options = {
+\ '\.html\.erb$': {'ale_linters': [], 'ale_fixers': []},
+\}
 highlight ALEErrorSign ctermbg=yellow guibg=#3b7593 guifg=white ctermfg=white
 highlight ALEWarningSign ctermbg=yellow guibg=#3b7593 guifg=white ctermfg=white
 let g:ale_sign_error = '⨉'
@@ -431,7 +458,7 @@ smap <expr><TAB> neosnippet#expandable_or_jumpable() ?
 let g:neosnippet#enable_auto_clear_markers=0
 nmap <leader>nse :NeoSnippetEdit -horizontal -split<cr>
 nmap <leader>nsl ::NeoSnippetSource ~/.config/nvim/MyNeoSnippets/*<cr>
-"}}}
+nmap <leader>dos :set fileformat=unix<cr> && :e ++ff=dos<cr>
 "
 "
 let g:ruby_indent_assignment_style = 'hanging'
