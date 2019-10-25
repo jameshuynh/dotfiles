@@ -60,8 +60,10 @@ call dein#add('junegunn/fzf.vim', { 'depends': 'junegunn/fzf' })
 call dein#add('scrooloose/nerdtree')
 call dein#add('henrik/vim-reveal-in-finder')
 call dein#add('kchmck/vim-coffee-script')
+call dein#add('zivyangll/git-blame.vim')
 
 call dein#add('machakann/vim-highlightedyank')
+call dein#add('fatih/vim-go')
 
 " call dein#add('ternjs/tern_for_vim')
 " call dein#add('carlitux/deoplete-ternjs', { 'build': 'npm install -g tern' })
@@ -189,6 +191,9 @@ nnoremap <leader>p <Nop> " disable default mapping of prettier
 nmap <Leader>fs <Plug>(PrettierAsync)
 autocmd FileType ruby nmap <leader>fs :ALEFix<CR>
 autocmd FileType js,json,css,css,less,graphql nmap <leader>fs :PrettierAsync<CR>
+
+" git blame
+nnoremap <Leader>gb :<C-u>call gitblame#echo()<CR>
 
 " open vimrc in a horizontal window
 nmap <leader>vr :sp $MYVIMRC<cr>

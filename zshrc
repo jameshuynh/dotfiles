@@ -13,7 +13,7 @@ ZSH_THEME="robbyrussell"
 # ZSH_THEME=""
 # autoload -U promptinit; promptinit
 
-source ~/.zsh/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=246'
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -88,6 +88,8 @@ fi
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
+alias prp="pipenv run python3"
+
 alias dc="docker-compose"
 alias dc-web="docker-compose run web"
 alias zshconfig="mate ~/.zshrc"
@@ -142,6 +144,8 @@ alias dc-rspec='docker-compose run web rspec'
 alias dc='docker-compose'
 alias whoisonport='lsof -i tcp:3000'
 
+alias b='buffalo'
+
 alias samsung_admin='cd ~/apps/samsung_toolbox/samsung-tool-box'
 alias arbitry_load="plutil -insert NSAppTransportSecurity -json '{\"NSAllowsArbitraryLoads\":true}' rubify/Info.plist"
 
@@ -184,7 +188,7 @@ source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 export TM_RUBY=$HOME/.rbenv/shims/ruby
 # eval $(/usr/libexec/path_helper -s)
 
-eval $(thefuck --alias)
+# eval $(thefuck --alias)
 
 export BUNDLE_ID=com.quadmark.fxtestapp
 export DEVICE_TARGET=48e0f20ddb735a99b50f9d50e495c7fe20730b38
@@ -231,7 +235,6 @@ DISABLE_AUTO_TITLE=true
 
 test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
 
-export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
 # set -o vi
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
@@ -239,4 +242,14 @@ export SDKMAN_DIR="/Users/james/.sdkman"
 [[ -s "/Users/james/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/james/.sdkman/bin/sdkman-init.sh"
 
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
-source /usr/local/opt/autoenv/activate.sh
+# source /usr/local/opt/autoenv/activate.sh
+export PATH="/usr/local/opt/php@7.2/bin:/Users/james/go/bin:$PATH"
+
+export LANG=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
+export LC_COLLATE=C
+export LC_CTYPE=en_US.UTF-8
+
+export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
+export PATH="$HOME/.rbenv/bin:$PATH"
+export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
