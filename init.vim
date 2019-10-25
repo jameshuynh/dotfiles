@@ -50,6 +50,8 @@ call dein#add('Shougo/neosnippet-snippets')
 call dein#add('xolox/vim-misc')
 call dein#add('xolox/vim-notes')
 
+call dein#add('rhysd/vim-crystal')
+
 call dein#add('machakann/vim-highlightedyank')
 
 " deoplete stuff
@@ -82,7 +84,8 @@ call dein#add('machakann/vim-highlightedyank')
 " setlocal omnifunc=gocode#Complete
 " set completeopt=longest,menuone,noinsert
 let g:go_fmt_fail_silently = 1
-let g:go_fmt_autosave = 0
+let g:go_fmt_autosave = 1
+let g:go_fmt_command = "goimports"
 
 if dein#check_install()
   call dein#install()
