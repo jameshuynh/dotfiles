@@ -13,7 +13,7 @@ ZSH_THEME="robbyrussell"
 # ZSH_THEME=""
 # autoload -U promptinit; promptinit
 
-source ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.oh-my-zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=246'
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -189,7 +189,7 @@ export KEYTIMEOUT=1
 
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
-source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.oh-my-zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export TM_RUBY=$HOME/.rbenv/shims/ruby
 # eval $(/usr/libexec/path_helper -s)

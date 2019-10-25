@@ -273,7 +273,7 @@ nnoremap <leader>ft :VtrFocusRunner<cr>
 
 " save with w
 nmap <leader>w <esc>:w<cr>
-map <C-t> :NERDTreeToggle<CR>
+" map <C-t> :NERDTreeToggle<CR>
 
 nnoremap <leader>i <esc>:!ctags_index<cr>
 
@@ -499,12 +499,9 @@ let g:fzf_colors =
 let g:jsx_ext_required = 0
 " set includeexpr=substitute(v:fname, '^\\~', 'src/', '')
 " set suffixesadd=.js,.vue,.scss
-augroup navigator
-  autocmd!
-  autocmd FileType netrw call s:reset_netrw_keys()
-augroup END
 
-function! s:reset_netrw_keys() abort
-  nmap <buffer> <silent> <c-j> <Plug>NetrwHideEdit
-  nmap <buffer> <silent> <c-k> <Plug>NetrwRefresh
-endfunction
+autocmd FileType netrw setl bufhidden=delete
+set path+=**
+set wildmenu
+
+let g:NERDTreeMapJumpNextSibling = ''
