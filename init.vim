@@ -218,6 +218,8 @@ autocmd FileType js,json,css,css,less,graphql nmap <leader>fs :PrettierAsync<CR>
 " git blame
 nnoremap <Leader>gb :<C-u>call gitblame#echo()<CR>
 
+nmap <leader>ed :edit<cr>
+
 " open vimrc in a horizontal window
 nmap <leader>vr :sp $MYVIMRC<cr>
 " source vimrc
@@ -261,6 +263,7 @@ nmap <leader>= :wincmd =<cr>
 nmap <leader>h :nohlsearch<cr>
 
 nmap <leader>of :! open .<cr>
+nmap <leader>b :GoBuild<cr>
 
 " tmux runner
 nnoremap <leader>irb :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'irb' }<cr>
@@ -352,6 +355,7 @@ let g:ale_fixers = {
 let g:ale_linters = {
       \   'typescript': ['tslint'],
       \   'javascript': ['flow', 'eslint'],
+      \   'go': ['gopls'],
       \   'erb': [],
       \   'ruby': ['rubocop', 'mri'],
       \   'vim' : ['vint'],
@@ -505,3 +509,4 @@ set path+=**
 set wildmenu
 
 let g:NERDTreeMapJumpNextSibling = ''
+set rtp+=fzf
