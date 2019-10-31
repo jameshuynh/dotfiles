@@ -88,6 +88,8 @@ call dein#add('fatih/vim-go')
 let g:go_fmt_fail_silently = 1
 let g:go_fmt_autosave = 1
 let g:go_fmt_command = "goimports"
+let g:go_def_mode='gopls'
+let g:go_info_mode='gopls'
 
 if dein#check_install()
   call dein#install()
@@ -264,6 +266,7 @@ nmap <leader>h :nohlsearch<cr>
 
 nmap <leader>of :! open .<cr>
 nmap <leader>b :GoBuild<cr>
+nmap <leader>d :GoDoc<cr>
 
 " tmux runner
 nnoremap <leader>irb :VtrOpenRunner {'orientation': 'h', 'percentage': 50, 'cmd': 'irb' }<cr>
@@ -351,11 +354,12 @@ let g:agprg='ag -S --nocolor --nogroup --column --ignore node_modules'
 let g:ale_fixers = {
 \   'javascript': ['prettier'],
 \   'ruby': ['rubocop'],
+\   'go': ['gofmt', 'trim_whitespace']
 \}
 let g:ale_linters = {
       \   'typescript': ['tslint'],
       \   'javascript': ['flow', 'eslint'],
-      \   'go': ['gopls'],
+      \   'go': ['golint', 'gopls'],
       \   'erb': [],
       \   'ruby': ['rubocop', 'mri'],
       \   'vim' : ['vint'],
