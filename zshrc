@@ -13,7 +13,7 @@ ZSH_THEME="robbyrussell"
 # ZSH_THEME=""
 # autoload -U promptinit; promptinit
 
-source ~/.oh-my-zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=246'
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -61,7 +61,7 @@ plugins=(git)
 
 # User configuration
 
-export PATH="~/.rbenv/shims:~/.rbenv/bin:~/work/adt-bundle-mac/sdk/tools:/opt/chefdk/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/TeX/texbin:$HOME/.cargo/bin:$HOME/go/bin:$PATH"
+export PATH="~/.rbenv/shims:~/.rbenv/bin:~/work/adt-bundle-mac/sdk/tools:/opt/chefdk/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/TeX/texbin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -107,13 +107,11 @@ alias rubify-form='cd ~/apps/lab/rubify-react-form && ./dev-tmux'
 alias rubify-grid='cd ~/apps/lab/rubify-react-grid && ./dev-tmux'
 alias amazing-borneo='cd ~/apps/ab/ab-frontend && ./dev-tmux'
 alias work-ready='cd ~/apps/work-ready/work-ready-frontend && ./dev-tmux'
-alias rp='cd ~/apps/lab/rubify-portal-2 && ./dev-tmux'
 
 alias npmri='curl -0 -L https://npmjs.com/install.sh | sh'
 alias ns='npm start'
 alias be='bundle exec'
 alias bec='bundle exec cucumber'
-alias bi='bundle install'
 alias bt='bundle exec thin start'
 alias rc='bundle exec rails console'
 alias gp='git push origin master'
@@ -123,7 +121,6 @@ alias co='git checkout'
 alias v='vim'
 alias ll='ls -al'
 alias 'r'='rails'
-alias 'b'='buffalo'
 alias 'j'='jekyll'
 alias 'js'='jekyll serve --watch'
 alias autossh='autossh -M $(($RANDOM%6400 + 1024))'
@@ -131,7 +128,8 @@ alias resolve="a=\`git diff --name-only --diff-filter=U\`;y=;IFS=$'\n' read -rd 
 alias resolve="git diff --name-only --diff-filter=U -z | xargs -0 bash -c '</dev/tty nvim \"\$@\"' x"
 alias id_rsa_gen='echo ssh-keygen -t rsa -b 4096 -C "your_email@example.com" | pbcopy'
 alias cp_id_rsa='cat ~/.ssh/id_rsa.pub | pbcopy'
-alias ctags_index='ctags -R --languages=ruby --exclude=.git --exclude=log . $(bundle list --paths)'
+alias ctags="`brew --prefix`/bin/ctags"
+alias ctags_index='ctags -R --exclude=.git --exclude=log . $(bundle list --paths)'
 alias jhdownloadmanager='cd ~/apps/JHDownloadManager'
 alias cleardns='sudo killall -HUP mDNSResponder'
 alias purgeallbuilds='rm -rf ~/Library/Developer/Xcode/DerivedData/*'
@@ -146,14 +144,11 @@ alias dc-migrate='docker-compose run web rails db:migrate'
 alias dc-rspec='docker-compose run web rspec'
 alias dc='docker-compose'
 alias whoisonport='lsof -i tcp:3000'
-alias g='git'
-alias python='python3'
 
 alias b='buffalo'
 
 alias samsung_admin='cd ~/apps/samsung_toolbox/samsung-tool-box'
 alias arbitry_load="plutil -insert NSAppTransportSecurity -json '{\"NSAllowsArbitraryLoads\":true}' rubify/Info.plist"
-alias reinstall_npm="curl -0 -L https://npmjs.com/install.sh | sudo sh"
 
 fancy-ctrl-z () {
   if [[ $#BUFFER -eq 0 ]]; then
@@ -189,7 +184,7 @@ export KEYTIMEOUT=1
 
 zle -N fancy-ctrl-z
 bindkey '^Z' fancy-ctrl-z
-source ~/.oh-my-zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/.zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export TM_RUBY=$HOME/.rbenv/shims/ruby
 # eval $(/usr/libexec/path_helper -s)
@@ -228,7 +223,7 @@ else
     fi
 fi
 
-export PATH="$HOME/.rbenv/bin:$HOME/Library/Android/sdk/platform-tools:/home/james/go/bin/:$PATH"
+export PATH="$HOME/.rbenv/bin:$HOME/Library/Android/sdk/platform-tools:$PATH"
 eval "$(rbenv init -)"
 
 # Setting ag as the default source for fzf
@@ -246,9 +241,7 @@ test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/Users/james/.sdkman"
 [[ -s "/Users/james/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/james/.sdkman/bin/sdkman-init.sh"
-export N_PREFIX="$HOME/n"; [[ :$PATH: == *":$N_PREFIX/bin:"* ]] || PATH+=":$N_PREFIX/bin"  # Added by n-install (see http://git.io/n-install-repo).
 
-export LIBRARY_PATH=$LIBRARY_PATH:/usr/local/opt/openssl/lib/
 export PATH="$HOME/.yarn/bin:$HOME/.config/yarn/global/node_modules/.bin:$PATH"
 # source /usr/local/opt/autoenv/activate.sh
 export PATH="/usr/local/opt/php@7.2/bin:/Users/james/go/bin:$PATH"
