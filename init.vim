@@ -59,7 +59,7 @@ call dein#add('Shougo/deoplete.nvim')
 call dein#add('Shougo/deol.nvim')
 
 call dein#add('tpope/vim-endwise')
-call dein#add('szw/vim-tags')
+" call dein#add('szw/vim-tags')
 
 call dein#add('junegunn/fzf', { 'build': './install' })
 call dein#add('junegunn/fzf.vim', { 'depends': 'junegunn/fzf' })
@@ -75,6 +75,10 @@ call dein#add('deoplete-plugins/deoplete-go', {'build': 'make'})
 
 call dein#add('machakann/vim-highlightedyank')
 call dein#add('fatih/vim-go')
+call dein#add('Shougo/vimproc.vim', {'build' : 'make'})
+call dein#add('Quramy/tsuquyomi')
+" call dein#add('ludovicchabant/vim-gutentags')
+
 
 " call dein#add('ternjs/tern_for_vim')
 " call dein#add('carlitux/deoplete-ternjs', { 'build': 'npm install -g tern' })
@@ -201,7 +205,7 @@ map Y y$
 
 " imap <Tab> <C-P>
 
-set shell=zsh
+set shell=zsh\ -i
 
 let g:ycm_semantic_triggers = {
      \ 'elm' : ['.'],
@@ -228,6 +232,7 @@ nmap <leader>vr :sp $MYVIMRC<cr>
 nmap <leader>so :source $MYVIMRC<cr>
 
 nmap <leader>pi :PluginInstall<cr>
+nmap <leader>tsi :TsuImport<cr>
 
 " Show all git commits
 nmap <leader>gc :GV<cr>
@@ -281,6 +286,8 @@ nnoremap <leader>ft :VtrFocusRunner<cr>
 nmap <leader>w <esc>:w<cr>
 " map <C-t> :NERDTreeToggle<CR>
 
+set tags+=.tags
+" set autochdir
 nnoremap <leader>i <esc>:!ctags_index<cr>
 
 " map jk and kj with escape
@@ -356,8 +363,11 @@ let g:ale_fixers = {
 \   'ruby': ['rubocop'],
 \   'go': ['gofmt', 'trim_whitespace']
 \}
+
+let g:tsuquyomi_disable_quickfix = 1
+let g:ale_linter_aliases = {'typescriptreact': 'typescript'}
 let g:ale_linters = {
-      \   'typescript': ['tslint'],
+      \   'typescript': ['tsserver', 'eslint'],
       \   'javascript': ['flow', 'eslint'],
       \   'go': ['golint', 'gopls'],
       \   'erb': [],
